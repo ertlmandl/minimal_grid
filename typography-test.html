@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fluid Typography Test - Minimal Grid</title>
+  <link rel="stylesheet" href="minimal_grid.css">
+  <style>
+    /* Demo-specific styles */
+    .demo-section {
+      margin-bottom: 4em;
+      padding-bottom: 2em;
+      border-bottom: 2px solid #eee;
+    }
+
+    .demo-section:last-child {
+      border-bottom: none;
+    }
+
+    .scale-info {
+      position: fixed;
+      top: 1em;
+      right: 1em;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 1em;
+      border-radius: 8px;
+      font-size: 0.75em;
+      font-family: monospace;
+      z-index: 1000;
+      line-height: 1.4;
+    }
+
+    .scale-info strong {
+      color: #4CAF50;
+    }
+
+    .type-specimen {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 1em;
+      gap: 1em;
+    }
+
+    .type-label {
+      font-family: monospace;
+      font-size: 0.75em;
+      color: #999;
+      min-width: 60px;
+    }
+
+    .color-boxes {
+      display: flex;
+      gap: 1em;
+      margin-top: 1em;
+    }
+
+    .color-box {
+      flex: 1;
+      padding: 2em 1em;
+      border-radius: 4px;
+      color: white;
+    }
+
+    .bg-primary { background: #0066cc; }
+    .bg-secondary { background: #6c757d; }
+    .bg-success { background: #28a745; }
+  </style>
+</head>
+<body>
+  <div class="container xl">
+
+    <!-- Scale Info Display -->
+    <div class="scale-info">
+      <div><strong>Viewport:</strong> <span id="viewport-width">—</span>px</div>
+      <div><strong>Base Font:</strong> <span id="base-font">—</span>px</div>
+      <div><strong>Container:</strong> <span id="container-size">—</span></div>
+      <div><strong>Ideal:</strong> <span id="ideal-size">—</span></div>
+    </div>
+
+    <!-- Header -->
+    <header class="demo-section text-center">
+      <h1>Fluid Typography System</h1>
+      <p class="lead">Ein responsives Typografie-System basierend auf viewport-skalierter em-Einheiten</p>
+      <p class="text-muted">Ändere die Browsergröße um die fluide Skalierung zu sehen</p>
+    </header>
+
+    <!-- Heading Scale -->
+    <section class="demo-section">
+      <h2>Heading Scale (h1 - h6)</h2>
+      <p class="text-muted">Alle Überschriften skalieren proportional zur Basis-Schriftgröße</p>
+
+      <div class="type-specimen">
+        <span class="type-label">h1 / 3.5em</span>
+        <h1>The quick brown fox jumps over the lazy dog</h1>
+      </div>
+
+      <div class="type-specimen">
+        <span class="type-label">h2 / 2.75em</span>
+        <h2>The quick brown fox jumps over the lazy dog</h2>
+      </div>
+
+      <div class="type-specimen">
+        <span class="type-label">h3 / 2.25em</span>
+        <h3>The quick brown fox jumps over the lazy dog</h3>
+      </div>
+
+      <div class="type-specimen">
+        <span class="type-label">h4 / 1.875em</span>
+        <h4>The quick brown fox jumps over the lazy dog</h4>
+      </div>
+
+      <div class="type-specimen">
+        <span class="type-label">h5 / 1.5em</span>
+        <h5>The quick brown fox jumps over the lazy dog</h5>
+      </div>
+
+      <div class="type-specimen">
+        <span class="type-label">h6 / 1.25em</span>
+        <h6>The quick brown fox jumps over the lazy dog</h6>
+      </div>
+    </section>
+
+    <!-- Body Text -->
+    <section class="demo-section">
+      <h2>Body Text & Paragraphs</h2>
+
+      <p class="lead">
+        Dies ist ein Lead-Paragraph (1.25em). Er ist größer als normaler Fließtext und eignet sich für Einleitungen oder wichtige Absätze.
+      </p>
+
+      <p>
+        Dies ist ein normaler Paragraph (1em). Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+
+      <p class="small">
+        Dies ist ein kleiner Text (0.875em). Nützlich für Fußnoten, Metadaten oder weniger wichtige Informationen.
+      </p>
+    </section>
+
+    <!-- Lists -->
+    <section class="demo-section">
+      <h2>Listen</h2>
+
+      <div class="row">
+        <div class="xs:col-12 md:col-6">
+          <h3>Ungeordnete Liste</h3>
+          <ul>
+            <li>Erstes Element</li>
+            <li>Zweites Element mit mehr Text, um zu zeigen wie mehrzeilige Einträge aussehen</li>
+            <li>Drittes Element
+              <ul>
+                <li>Verschachteltes Element</li>
+                <li>Noch ein verschachteltes Element</li>
+              </ul>
+            </li>
+            <li>Viertes Element</li>
+          </ul>
+        </div>
+
+        <div class="xs:col-12 md:col-6">
+          <h3>Geordnete Liste</h3>
+          <ol>
+            <li>Erster Schritt</li>
+            <li>Zweiter Schritt mit mehr Text, um zu zeigen wie mehrzeilige Einträge aussehen</li>
+            <li>Dritter Schritt
+              <ol>
+                <li>Unterschritt A</li>
+                <li>Unterschritt B</li>
+              </ol>
+            </li>
+            <li>Vierter Schritt</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blockquotes -->
+    <section class="demo-section">
+      <h2>Blockquotes</h2>
+
+      <blockquote>
+        <p>
+          "Das Design ist nicht nur, wie es aussieht und sich anfühlt.
+          Design ist, wie es funktioniert."
+        </p>
+      </blockquote>
+
+      <p class="text-right text-muted">— Steve Jobs</p>
+    </section>
+
+    <!-- Code -->
+    <section class="demo-section">
+      <h2>Code</h2>
+
+      <p>Inline code: <code>var(--size-font)</code> wird verwendet um die Basis-Schriftgröße zu setzen.</p>
+
+      <pre><code>// Beispiel CSS
+body {
+  font-size: var(--size-font);
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 3.5em;
+}</code></pre>
+    </section>
+
+    <!-- Links -->
+    <section class="demo-section">
+      <h2>Links & Text Utilities</h2>
+
+      <p>
+        Dies ist ein <a href="#">normaler Link</a> im Fließtext.
+      </p>
+
+      <p class="text-muted">Text mit .text-muted Klasse</p>
+      <p class="text-bold">Text mit .text-bold Klasse</p>
+      <p class="text-light">Text mit .text-light Klasse</p>
+      <p class="text-uppercase">Text mit .text-uppercase Klasse</p>
+    </section>
+
+    <!-- Grid Integration -->
+    <section class="demo-section">
+      <h2>Grid Integration</h2>
+      <p>Das Typografie-System funktioniert nahtlos mit dem Grid-System</p>
+
+      <div class="row">
+        <div class="xs:col-12 md:col-4">
+          <div class="color-box bg-primary">
+            <h3>Column 1</h3>
+            <p>Alle Schriftgrößen skalieren automatisch</p>
+          </div>
+        </div>
+        <div class="xs:col-12 md:col-4">
+          <div class="color-box bg-secondary">
+            <h3>Column 2</h3>
+            <p>Basierend auf dem Viewport</p>
+          </div>
+        </div>
+        <div class="xs:col-12 md:col-4">
+          <div class="color-box bg-success">
+            <h3>Column 3</h3>
+            <p>Mit clamp() begrenzt</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alignment -->
+    <section class="demo-section">
+      <h2>Text-Ausrichtung</h2>
+
+      <p class="text-left">Linksbündiger Text (.text-left)</p>
+      <p class="text-center">Zentrierter Text (.text-center)</p>
+      <p class="text-right">Rechtsbündiger Text (.text-right)</p>
+    </section>
+
+    <!-- Breakpoint Information -->
+    <section class="demo-section">
+      <h2>Breakpoint-Übersicht</h2>
+
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background: #f5f5f5;">
+            <th style="padding: 0.75em; text-align: left; border: 1px solid #ddd;">Breakpoint</th>
+            <th style="padding: 0.75em; text-align: left; border: 1px solid #ddd;">Range</th>
+            <th style="padding: 0.75em; text-align: left; border: 1px solid #ddd;">Ideal Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 0.75em; border: 1px solid #ddd;"><code>xs</code></td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">320px - 599px</td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">390px</td>
+          </tr>
+          <tr style="background: #f9f9f9;">
+            <td style="padding: 0.75em; border: 1px solid #ddd;"><code>sm</code></td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">600px - 767px</td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">600px</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75em; border: 1px solid #ddd;"><code>md</code></td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">768px - 1023px</td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">834px</td>
+          </tr>
+          <tr style="background: #f9f9f9;">
+            <td style="padding: 0.75em; border: 1px solid #ddd;"><code>lg</code></td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">1024px - 1279px</td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">1024px</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75em; border: 1px solid #ddd;"><code>xl</code></td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">1280px - 1535px</td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">1440px</td>
+          </tr>
+          <tr style="background: #f9f9f9;">
+            <td style="padding: 0.75em; border: 1px solid #ddd;"><code>xxl</code></td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">1536px - 2560px</td>
+            <td style="padding: 0.75em; border: 1px solid #ddd;">1920px</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center" style="margin-top: 4em; padding-top: 2em; border-top: 1px solid #ddd;">
+      <p class="small text-muted">Minimal Grid - Fluid Typography System</p>
+    </footer>
+
+  </div>
+
+  <!-- JavaScript for live info display -->
+  <script>
+    function updateInfo() {
+      const viewportWidth = window.innerWidth;
+      const baseFontSize = parseFloat(getComputedStyle(document.body).fontSize);
+      const containerSize = getComputedStyle(document.documentElement).getPropertyValue('--size-container').trim();
+      const idealSize = getComputedStyle(document.documentElement).getPropertyValue('--size-container-ideal').trim();
+
+      document.getElementById('viewport-width').textContent = viewportWidth;
+      document.getElementById('base-font').textContent = baseFontSize.toFixed(2);
+      document.getElementById('container-size').textContent = containerSize;
+      document.getElementById('ideal-size').textContent = idealSize;
+    }
+
+    updateInfo();
+    window.addEventListener('resize', updateInfo);
+  </script>
+</body>
+</html>

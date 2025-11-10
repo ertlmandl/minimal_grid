@@ -1,0 +1,260 @@
+// =========================================
+// FLUID TYPOGRAPHY SYSTEM
+// =========================================
+
+@use "sass:map";
+@use "config" as *;
+
+// =========================================
+// TYPOGRAPHY SCALING CONFIGURATION
+// =========================================
+
+// Typography-specific configuration
+// Define ideal artboard sizes and min/max ranges for each breakpoint
+$typography-scaling: (
+  xs: (
+    ideal: 390,    // iPhone 14 Pro design size
+    min: 320px,    // Smallest mobile (iPhone SE)
+    max: map.get($breakpoints, sm) - 1px  // 599px
+  ),
+  sm: (
+    ideal: 600,    // Small tablet/large mobile design size
+    min: map.get($breakpoints, sm),       // 600px
+    max: map.get($breakpoints, md) - 1px  // 767px
+  ),
+  md: (
+    ideal: 834,    // iPad design size
+    min: map.get($breakpoints, md),       // 768px
+    max: map.get($breakpoints, lg) - 1px  // 1023px
+  ),
+  lg: (
+    ideal: 1024,   // Small desktop design size
+    min: map.get($breakpoints, lg),       // 1024px
+    max: map.get($breakpoints, xl) - 1px  // 1279px
+  ),
+  xl: (
+    ideal: 1440,   // Standard desktop design size
+    min: map.get($breakpoints, xl),       // 1280px
+    max: map.get($breakpoints, xxl) - 1px // 1535px
+  ),
+  xxl: (
+    ideal: 1920,   // Large desktop design size
+    min: map.get($breakpoints, xxl),      // 1536px
+    max: $container-max-width              // 2560px
+  )
+) !default;
+
+$base-font-size: 16 !default;
+
+// =========================================
+// GENERATE FLUID SCALING SYSTEM
+// =========================================
+
+@each $breakpoint, $config in $typography-scaling {
+  $breakpoint-value: map.get($breakpoints, $breakpoint);
+
+  @if $breakpoint == xs {
+    // Base styles for mobile (xs)
+    :root {
+      --size-unit: #{$base-font-size};
+      --size-container-ideal: #{map.get($config, ideal)};
+      --size-container-min: #{map.get($config, min)};
+      --size-container-max: #{map.get($config, max)};
+      --size-container: clamp(var(--size-container-min), 100vw, var(--size-container-max));
+      --size-font: calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit)));
+    }
+  } @else {
+    // Responsive overwrites for larger breakpoints
+    @media screen and (min-width: $breakpoint-value) {
+      :root {
+        --size-container-ideal: #{map.get($config, ideal)};
+        --size-container-min: #{map.get($config, min)};
+        --size-container-max: #{map.get($config, max)};
+      }
+    }
+  }
+}
+
+// =========================================
+// BASE TYPOGRAPHY STYLES
+// =========================================
+
+body {
+  font-size: var(--size-font);
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+}
+
+// =========================================
+// HEADINGS
+// =========================================
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 0.5em 0;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #111;
+}
+
+h1 {
+  font-size: 3.5em;   // 56px at 16px base
+  margin-bottom: 0.7em;
+}
+
+h2 {
+  font-size: 2.75em;  // 44px at 16px base
+}
+
+h3 {
+  font-size: 2.25em;  // 36px at 16px base
+}
+
+h4 {
+  font-size: 1.875em; // 30px at 16px base
+}
+
+h5 {
+  font-size: 1.5em;   // 24px at 16px base
+}
+
+h6 {
+  font-size: 1.25em;  // 20px at 16px base
+}
+
+// =========================================
+// BODY TEXT
+// =========================================
+
+p {
+  margin: 0 0 1em 0;
+  font-size: 1em;
+  line-height: 1.6;
+}
+
+// Lead paragraph
+.lead {
+  font-size: 1.25em;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+// Small text
+small, .small {
+  font-size: 0.875em;
+}
+
+// =========================================
+// LISTS
+// =========================================
+
+ul, ol {
+  margin: 0 0 1em 0;
+  padding-left: 1.5em;
+
+  li {
+    margin-bottom: 0.5em;
+  }
+}
+
+// =========================================
+// LINKS
+// =========================================
+
+a {
+  color: #0066cc;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #004499;
+    text-decoration: underline;
+  }
+}
+
+// =========================================
+// BLOCKQUOTES
+// =========================================
+
+blockquote {
+  margin: 0 0 1em 0;
+  padding: 1em 1.5em;
+  border-left: 4px solid #ddd;
+  font-size: 1.125em;
+  font-style: italic;
+  color: #666;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// =========================================
+// CODE
+// =========================================
+
+code {
+  font-family: "Monaco", "Courier New", monospace;
+  font-size: 0.875em;
+  padding: 0.125em 0.375em;
+  background: #f5f5f5;
+  border-radius: 3px;
+  color: #c7254e;
+}
+
+pre {
+  margin: 0 0 1em 0;
+  padding: 1em;
+  background: #f5f5f5;
+  border-radius: 4px;
+  overflow-x: auto;
+
+  code {
+    padding: 0;
+    background: none;
+    color: inherit;
+  }
+}
+
+// =========================================
+// HORIZONTAL RULE
+// =========================================
+
+hr {
+  margin: 2em 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+}
+
+// =========================================
+// UTILITY CLASSES
+// =========================================
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-muted {
+  color: #666;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.text-light {
+  font-weight: 300;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
