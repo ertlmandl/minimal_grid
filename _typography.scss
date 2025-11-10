@@ -46,6 +46,10 @@ $typography-scaling: (
 
 $base-font-size: 16 !default;
 
+// Font size constraints (accessibility)
+$min-font-size: 16px !default;  // Never go below 16px for readability
+$max-font-size: 22px !default;  // Maximum font size for large viewports
+
 // =========================================
 // GENERATE FLUID SCALING SYSTEM
 // =========================================
@@ -61,7 +65,7 @@ $base-font-size: 16 !default;
       --size-container-min: #{map.get($config, min)};
       --size-container-max: #{map.get($config, max)};
       --size-container: clamp(var(--size-container-min), 100vw, var(--size-container-max));
-      --size-font: calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit)));
+      --size-font: clamp(#{$min-font-size}, calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit))), #{$max-font-size});
     }
   } @else {
     // Responsive overwrites for larger breakpoints

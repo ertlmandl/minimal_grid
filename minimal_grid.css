@@ -1035,7 +1035,7 @@
   --size-container-min: 320px;
   --size-container-max: 599px;
   --size-container: clamp(var(--size-container-min), 100vw, var(--size-container-max));
-  --size-font: calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit)));
+  --size-font: clamp(16px, calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit))), 22px);
 }
 
 @media screen and (min-width: 600px) {
