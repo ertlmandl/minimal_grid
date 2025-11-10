@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Grid - Fortgeschrittene Features</title>
+    <link rel="stylesheet" href="css/minimal_grid.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        h2 {
+            margin: 40px 0 20px 0;
+            color: #555;
+        }
+
+        .box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box-orange {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .box-green {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .box-pink {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .box-blue {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .box-small {
+            padding: 15px 10px;
+            min-height: 60px;
+            font-size: 14px;
+        }
+
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Minimal Grid - Fortgeschrittene Features</h1>
+
+        <div class="info-box">
+            <h3>Erweiterte Funktionen</h3>
+            <p>Dieses Beispiel zeigt fortgeschrittene Features wie Offsets, Order-Klassen und Visibility-Helpers.
+            Ändere die Browser-Größe, um die unterschiedlichen Verhaltensweisen zu sehen.</p>
+        </div>
+
+        <!-- OFFSET EXAMPLES -->
+        <h2>📐 1. Offset - Zentrierte Inhalte</h2>
+        <div class="row">
+            <div class="xs:col-6 xs:offset-3">
+                <div class="box">6 Spalten, zentriert mit offset-3</div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>Erklärung:</strong>
+            <p><code>xs:offset-3</code> verschiebt den Inhalt um 3 Spalten nach rechts,
+            sodass 6 Spalten zentriert werden (3 + 6 + 3 = 12).</p>
+        </div>
+
+        <h2>📐 2. Offset - Verschiedene Größen</h2>
+        <div class="row">
+            <div class="xs:col-4 xs:offset-2">
+                <div class="box box-orange">4 Spalten + offset-2</div>
+            </div>
+            <div class="xs:col-4">
+                <div class="box box-orange">4 Spalten</div>
+            </div>
+        </div>
+
+        <h2>📐 3. Responsive Offset</h2>
+        <div class="row">
+            <div class="xs:col-12 md:col-8 md:offset-2 lg:col-6 lg:offset-3">
+                <div class="box box-green">
+                    Mobil: volle Breite<br>
+                    Tablet: 8 Spalten zentriert<br>
+                    Desktop: 6 Spalten zentriert
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>Erklärung:</strong>
+            <ul>
+                <li><code>xs:col-12</code> = Volle Breite auf Mobil</li>
+                <li><code>md:col-8 md:offset-2</code> = 8 Spalten zentriert ab Tablet</li>
+                <li><code>lg:col-6 lg:offset-3</code> = 6 Spalten zentriert ab Desktop</li>
+            </ul>
+        </div>
+
+        <!-- ORDER EXAMPLES -->
+        <h2>🔄 4. Order - Reihenfolge ändern</h2>
+        <div class="row">
+            <div class="xs:col-6 lg:col-4 lg:order-3">
+                <div class="box box-pink">
+                    <strong>Box 1</strong><br>
+                    <small>Desktop: Position 3</small>
+                </div>
+            </div>
+            <div class="xs:col-6 lg:col-4 lg:order-1">
+                <div class="box box-pink">
+                    <strong>Box 2</strong><br>
+                    <small>Desktop: Position 1</small>
+                </div>
+            </div>
+            <div class="xs:col-6 lg:col-4 lg:order-2">
+                <div class="box box-pink">
+                    <strong>Box 3</strong><br>
+                    <small>Desktop: Position 2</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>Erklärung:</strong>
+            <p>Auf großen Bildschirmen wird die Reihenfolge geändert: Box 2 → Box 3 → Box 1</p>
+            <p>Klassen: <code>lg:order-1</code>, <code>lg:order-2</code>, <code>lg:order-3</code></p>
+        </div>
+
+        <h2>🔄 5. Order - Praktisches Beispiel</h2>
+        <div class="row">
+            <div class="xs:col-12 lg:col-8 lg:order-2">
+                <div class="box box-blue">
+                    <strong>Hauptinhalt</strong><br>
+                    <small>Mobil: Oben | Desktop: Rechts</small>
+                </div>
+            </div>
+            <div class="xs:col-12 lg:col-4 lg:order-1">
+                <div class="box box-blue">
+                    <strong>Navigation</strong><br>
+                    <small>Mobil: Unten | Desktop: Links</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>Erklärung:</strong>
+            <p>Auf Mobil erscheint der Hauptinhalt zuerst, auf Desktop wird die Navigation links angezeigt.</p>
+        </div>
+
+        <!-- VISIBILITY EXAMPLES -->
+        <h2>👁️ 6. Visibility - Responsive Sichtbarkeit</h2>
+        <div class="row">
+            <div class="xs:col-12 md:col-4">
+                <div class="box xs:hidden md:block">
+                    <span class="badge">md:block</span>
+                    Nur auf Tablet+ sichtbar
+                </div>
+            </div>
+            <div class="xs:col-12 md:col-4">
+                <div class="box md:hidden lg:block">
+                    <span class="badge">lg:block</span>
+                    Versteckt auf Tablet
+                </div>
+            </div>
+            <div class="xs:col-12 md:col-4">
+                <div class="box">
+                    <span class="badge">Immer</span>
+                    Immer sichtbar
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>Erklärung:</strong>
+            <ul>
+                <li><code>xs:hidden md:block</code> = Versteckt auf Mobil, sichtbar ab Tablet</li>
+                <li><code>md:hidden lg:block</code> = Versteckt auf Tablet, sichtbar auf Mobil und Desktop</li>
+            </ul>
+        </div>
+
+        <!-- COMBINED EXAMPLE -->
+        <h2>✨ 7. Kombiniertes Beispiel</h2>
+        <div class="row">
+            <div class="xs:col-12 md:col-6 md:offset-0 lg:col-4 lg:offset-2 lg:order-2">
+                <div class="box box-orange box-small">
+                    Feature Box 1
+                </div>
+            </div>
+            <div class="xs:col-12 md:col-6 lg:col-4 lg:offset-0 lg:order-1">
+                <div class="box box-orange box-small">
+                    Feature Box 2
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>Erklärung:</strong>
+            <p>Komplexe responsive Layouts mit mehreren Breakpoints und kombinierten Features.</p>
+        </div>
+
+        <!-- ORDER HELPERS -->
+        <h2>🎯 8. Order Helpers: first, last, none</h2>
+        <div class="row">
+            <div class="xs:col-4">
+                <div class="box box-green box-small">
+                    Box A<br><small>(Normal)</small>
+                </div>
+            </div>
+            <div class="xs:col-4 lg:order-last">
+                <div class="box box-pink box-small">
+                    Box B<br><small>(lg:order-last)</small>
+                </div>
+            </div>
+            <div class="xs:col-4 lg:order-first">
+                <div class="box box-blue box-small">
+                    Box C<br><small>(lg:order-first)</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>Erklärung:</strong>
+            <ul>
+                <li><code>lg:order-first</code> = Ganz vorne platzieren (-1)</li>
+                <li><code>lg:order-last</code> = Ganz hinten platzieren (999)</li>
+                <li><code>lg:order-none</code> = Standardreihenfolge (0)</li>
+            </ul>
+            <p>Auf Desktop: Box C → Box A → Box B</p>
+        </div>
+
+        <div class="info-box" style="margin-top: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <h3>🎉 Glückwunsch!</h3>
+            <p>Du kennst jetzt alle fortgeschrittenen Features des Minimal Grid Systems.</p>
+            <p style="margin-top: 15px;">
+                <a href="01-basic.html" style="color: white;">← Zurück zu Basis</a> |
+                <a href="03-website-layout.html" style="color: white;">Weiter zu Website-Layout →</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
