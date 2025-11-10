@@ -107,12 +107,35 @@ Hier ist ein einfaches Beispiel für ein responsives Layout:
 
 ### Erklärung
 
-- **`container`**: Zentriert den Inhalt mit einer maximalen Breite
+- **`container`**: Zentriert den Inhalt mit einer maximalen Breite von 2560px
+- **`container fluid`**: Container ohne maximale Breite (volle Bildschirmbreite)
+- **`container md`**: Container mit max-width von 768px
 - **`row`**: Erstellt ein Grid mit 12 Spalten
 - **`xs:col-12`**: Auf kleinen Bildschirmen (mobil) nimmt das Element 12 Spalten (volle Breite) ein
 - **`md:col-4`**: Ab der mittleren Breakpoint (768px) nimmt das Element 4 Spalten ein
 
 ## Weitere Funktionen
+
+### Container-Varianten
+
+Das Grid-System bietet flexible Container-Optionen mit verschiedenen maximalen Breiten:
+
+```html
+<!-- Standard Container (max-width: 2560px) -->
+<div class="container">...</div>
+
+<!-- Fluid Container (volle Breite) -->
+<div class="container fluid">...</div>
+
+<!-- Container mit Breakpoint-basierten max-width -->
+<div class="container sm">max-width: 600px</div>
+<div class="container md">max-width: 768px</div>
+<div class="container lg">max-width: 1024px</div>
+<div class="container xl">max-width: 1280px</div>
+<div class="container 2xl">max-width: 1536px</div>
+```
+
+Diese Varianten sind besonders nützlich für Content-Bereiche, die nicht die volle Container-Breite nutzen sollen (z.B. Pricing-Tabellen, Formulare).
 
 ### Offset
 

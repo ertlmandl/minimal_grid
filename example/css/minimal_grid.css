@@ -21,10 +21,23 @@
   margin: 0 auto;
   padding: 0 5vw;
 }
-
-.container-fluid {
-  width: 100%;
-  padding: 0 5vw;
+.container.fluid {
+  max-width: none;
+}
+.container.sm {
+  max-width: 600px;
+}
+.container.md {
+  max-width: 768px;
+}
+.container.lg {
+  max-width: 1024px;
+}
+.container.xl {
+  max-width: 1280px;
+}
+.container.\32xl {
+  max-width: 1536px;
 }
 
 /* ROW (GRID) */

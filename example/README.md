@@ -117,12 +117,18 @@ Das Grid-System verwendet folgende Breakpoints:
 ### Container
 ```html
 <div class="container">
-  <!-- Zentrierter Inhalt mit max-width -->
+  <!-- Zentrierter Inhalt mit max-width: 2560px -->
 </div>
 
-<div class="container-fluid">
-  <!-- Volle Breite mit Padding -->
+<div class="container fluid">
+  <!-- Volle Breite ohne max-width -->
 </div>
+
+<!-- Container mit Breakpoint-basierten max-width -->
+<div class="container md">max-width: 768px</div>
+<div class="container lg">max-width: 1024px</div>
+<div class="container xl">max-width: 1280px</div>
+<div class="container 2xl">max-width: 1536px</div>
 ```
 
 ### Row (Grid)
