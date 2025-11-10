@@ -6,11 +6,13 @@ Ein minimalistisches, flexibles CSS-Grid-System basierend auf CSS Grid Layout mi
 
 - 12-Spalten-Grid-System
 - CSS Grid basiert (modern und performant)
-- Responsive Breakpoints (xs, sm, md, lg, xl, 2xl)
+- Responsive Breakpoints (xs, sm, md, lg, xl, xxl)
 - Container-Klassen
 - Offset-Klassen
 - Order-Klassen
 - Visibility-Helpers
+- Text-Ausrichtungs-Helper (text-left, text-center, text-right, text-justify)
+- Modulare SCSS-Struktur (_config.scss, _grid.scss, _helpers.scss)
 - Vollständig anpassbar über SCSS-Variablen
 
 ## Installation
@@ -38,7 +40,7 @@ $breakpoints: (
   md: 768px,
   lg: 1024px,
   xl: 1280px,
-  2xl: 1536px
+  xxl: 1536px
 );
 
 @import 'minimal_grid';
@@ -132,7 +134,7 @@ Das Grid-System bietet flexible Container-Optionen mit verschiedenen maximalen B
 <div class="container md">max-width: 768px</div>
 <div class="container lg">max-width: 1024px</div>
 <div class="container xl">max-width: 1280px</div>
-<div class="container 2xl">max-width: 1536px</div>
+<div class="container xxl">max-width: 1536px</div>
 ```
 
 Diese Varianten sind besonders nützlich für Content-Bereiche, die nicht die volle Container-Breite nutzen sollen (z.B. Pricing-Tabellen, Formulare).
@@ -164,6 +166,31 @@ Diese Varianten sind besonders nützlich für Content-Bereiche, die nicht die vo
 </div>
 ```
 
+### Text-Ausrichtung
+
+```html
+<!-- Statische Text-Ausrichtung -->
+<div class="xs:text-left">Links ausgerichtet</div>
+<div class="xs:text-center">Zentriert</div>
+<div class="xs:text-right">Rechts ausgerichtet</div>
+<div class="xs:text-justify">Blocksatz</div>
+
+<!-- Responsive Text-Ausrichtung -->
+<div class="xs:text-left md:text-center lg:text-right">
+    Mobil: links | Tablet: zentriert | Desktop: rechts
+</div>
+
+<!-- Perfekt für Pricing Tables -->
+<div class="container md">
+    <div class="row">
+        <div class="xs:col-12 md:col-4 xs:text-center">
+            <h3>Basic</h3>
+            <p>9,99 €</p>
+        </div>
+    </div>
+</div>
+```
+
 ## Breakpoints
 
 | Breakpoint | Größe | Präfix |
@@ -173,7 +200,7 @@ Diese Varianten sind besonders nützlich für Content-Bereiche, die nicht die vo
 | Medium | 768px | `md:` |
 | Large | 1024px | `lg:` |
 | Extra Large | 1280px | `xl:` |
-| 2X Large | 1536px | `2xl:` |
+| 2X Large | 1536px | `xxl:` |
 
 ## Browser-Unterstützung
 

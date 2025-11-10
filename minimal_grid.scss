@@ -1,22 +1,24 @@
 // =========================================
-// CONFIGURATION
+// MINIMAL GRID SYSTEM
+// =========================================
+//
+// Ein minimalistisches, flexibles CSS-Grid-System
+// basierend auf CSS Grid Layout mit responsiven Breakpoints.
+//
 // =========================================
 
-@use "sass:map";
+// =========================================
+// IMPORT MODULES
+// =========================================
 
-$grid-columns: 12 !default;
-$gutter: 5vw !default;
-$container-padding: 5vw !default;
-$container-max-width: 2560px !default;
+// Import configuration (must be first)
+@use "config";
 
-$breakpoints: (
-  xs: 0,
-  sm: 600px,
-  md: 768px,
-  lg: 1024px,
-  xl: 1280px,
-  2xl: 1536px
-) !default;
+// Import grid system
+@use "grid";
+
+// Import helper utilities
+@use "helpers";
 
 // =========================================
 // CSS RESET
@@ -31,171 +33,4 @@ $breakpoints: (
 * {
   margin: 0;
   padding: 0;
-}
-
-// =========================================
-// CONTAINER
-// =========================================
-
-.container {
-  width: 100%;
-  max-width: $container-max-width;
-  margin: 0 auto;
-  padding: 0 $container-padding;
-
-  // Fluid modifier (full width)
-  &.fluid {
-    max-width: none;
-  }
-
-  // Breakpoint-based max-width modifiers
-  &.sm { max-width: map.get($breakpoints, sm); }
-  &.md { max-width: map.get($breakpoints, md); }
-  &.lg { max-width: map.get($breakpoints, lg); }
-  &.xl { max-width: map.get($breakpoints, xl); }
-  &.\32xl { max-width: map.get($breakpoints, 2xl); }
-}
-
-// =========================================
-// ROW (GRID)
-// =========================================
-
-.row {
-  display: grid;
-  grid-template-columns: repeat($grid-columns, 1fr);
-  gap: $gutter;
-}
-
-// =========================================
-// GRID COLUMNS
-// =========================================
-
-@mixin make-columns($prefix: '') {
-  @for $i from 1 through $grid-columns {
-    .#{$prefix}col-#{$i} {
-      grid-column-end: span $i;
-    }
-  }
-
-  .#{$prefix}col-full {
-    grid-column: 1 / -1;
-  }
-}
-
-// Generate base columns (xs)
-@include make-columns('xs\\:');
-
-// Generate responsive columns
-@each $breakpoint, $value in $breakpoints {
-  @if $value > 0 {
-    @media (min-width: $value) {
-      @include make-columns('#{$breakpoint}\\:');
-    }
-  }
-}
-
-// =========================================
-// OFFSET CLASSES
-// =========================================
-
-@mixin make-offsets($prefix: '') {
-  @for $i from 1 through ($grid-columns - 1) {
-    .#{$prefix}offset-#{$i} {
-      grid-column-start: $i + 1;
-    }
-  }
-  
-  .#{$prefix}offset-0 {
-    grid-column-start: auto;
-  }
-}
-
-// Generate base offsets (xs)
-@include make-offsets('xs\\:');
-
-// Generate responsive offsets
-@each $breakpoint, $value in $breakpoints {
-  @if $value > 0 {
-    @media (min-width: $value) {
-      @include make-offsets('#{$breakpoint}\\:');
-    }
-  }
-}
-
-// =========================================
-// ORDER CLASSES
-// =========================================
-
-@mixin make-order($prefix: '') {
-  @for $i from 1 through $grid-columns {
-    .#{$prefix}order-#{$i} {
-      order: $i;
-    }
-  }
-  
-  .#{$prefix}order-first {
-    order: -1;
-  }
-  
-  .#{$prefix}order-last {
-    order: 999;
-  }
-  
-  .#{$prefix}order-none {
-    order: 0;
-  }
-}
-
-// Generate base order (xs)
-@include make-order('xs\\:');
-
-// Generate responsive order
-@each $breakpoint, $value in $breakpoints {
-  @if $value > 0 {
-    @media (min-width: $value) {
-      @include make-order('#{$breakpoint}\\:');
-    }
-  }
-}
-
-// =========================================
-// VISIBILITY HELPERS
-// =========================================
-
-@mixin make-visibility($prefix: '') {
-  .#{$prefix}hidden {
-    display: none !important;
-  }
-  
-  .#{$prefix}block {
-    display: block !important;
-  }
-  
-  .#{$prefix}inline {
-    display: inline !important;
-  }
-  
-  .#{$prefix}inline-block {
-    display: inline-block !important;
-  }
-  
-  .#{$prefix}flex {
-    display: flex !important;
-  }
-  
-  .#{$prefix}grid {
-    display: grid !important;
-  }
-}
-
-// Generate base visibility (xs)
-@include make-visibility('xs\\:');
-
-// Generate responsive visibility
-@each $breakpoint, $value in $breakpoints {
-  @if $value > 0 {
-    @media (min-width: $value) {
-      @include make-visibility('#{$breakpoint}\\:');
-    }
-  }
 }
