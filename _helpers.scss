@@ -1,0 +1,40 @@
+// =========================================
+// HELPER CLASSES
+// =========================================
+
+@use "sass:map";
+@use "config" as *;
+
+// =========================================
+// TEXT ALIGNMENT
+// =========================================
+
+@mixin make-text-alignment($prefix: '') {
+  .#{$prefix}text-left {
+    text-align: left !important;
+  }
+
+  .#{$prefix}text-center {
+    text-align: center !important;
+  }
+
+  .#{$prefix}text-right {
+    text-align: right !important;
+  }
+
+  .#{$prefix}text-justify {
+    text-align: justify !important;
+  }
+}
+
+// Generate base text alignment (xs)
+@include make-text-alignment('xs\\:');
+
+// Generate responsive text alignment
+@each $breakpoint, $value in $breakpoints {
+  @if $value > 0 {
+    @media (min-width: $value) {
+      @include make-text-alignment('#{$breakpoint}\\:');
+    }
+  }
+}
