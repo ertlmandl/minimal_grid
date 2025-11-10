@@ -2,6 +2,8 @@
 // CONFIGURATION
 // =========================================
 
+@use "sass:map";
+
 $grid-columns: 12 !default;
 $gutter: 5vw !default;
 $container-padding: 5vw !default;
@@ -40,11 +42,18 @@ $breakpoints: (
   max-width: $container-max-width;
   margin: 0 auto;
   padding: 0 $container-padding;
-}
 
-.container-fluid {
-  width: 100%;
-  padding: 0 $container-padding;
+  // Fluid modifier (full width)
+  &.fluid {
+    max-width: none;
+  }
+
+  // Breakpoint-based max-width modifiers
+  &.sm { max-width: map.get($breakpoints, sm); }
+  &.md { max-width: map.get($breakpoints, md); }
+  &.lg { max-width: map.get($breakpoints, lg); }
+  &.xl { max-width: map.get($breakpoints, xl); }
+  &.\32xl { max-width: map.get($breakpoints, 2xl); }
 }
 
 // =========================================
