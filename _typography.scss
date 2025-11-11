@@ -48,8 +48,9 @@ $cq-max: 1200px !default;
   $range: $max - $min;
   $axis-range: $axis-max - $axis-min;
 
-  // Build the calc expression - compute axis-range at compile time
-  @return string.unquote("clamp(#{$min-val}, calc(#{$min-val} + #{$range} * (100#{$unit} - #{$axis-min}) / #{$axis-range}), #{$max-val})");
+  // Build the calc expression with explicit parentheses for cross-browser compatibility
+  // Using calc() explicitly and proper parentheses ensures Firefox, Safari, Chrome all work
+  @return string.unquote("clamp(#{$min-val}, calc(#{$min-val} + (#{$range}) * ((100#{$unit} - #{$axis-min}) / (#{$axis-range}))), #{$max-val})");
 }
 
 @mixin define-fluid-steps($steps, $axis-min, $axis-max, $unit) {
