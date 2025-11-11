@@ -1,3 +1,157 @@
+:root {
+  --measure: 65ch;
+  --lead: 1.5;
+  --lead-tight: 1.2;
+  --lead-loose: 1.7;
+  --vw-min: 360px;
+  --vw-max: 1440px;
+  --fs--2: clamp(12px, calc(12px + 2px * (100vi - var(--vw-min)) / (var(--vw-max) - var(--vw-min))), 14px);
+  --fs--1: clamp(14px, calc(14px + 2px * (100vi - var(--vw-min)) / (var(--vw-max) - var(--vw-min))), 16px);
+  --fs-0: clamp(16px, calc(16px + 2px * (100vi - var(--vw-min)) / (var(--vw-max) - var(--vw-min))), 18px);
+  --fs-1: clamp(20px, calc(20px + 4px * (100vi - var(--vw-min)) / (var(--vw-max) - var(--vw-min))), 24px);
+  --fs-2: clamp(26px, calc(26px + 6px * (100vi - var(--vw-min)) / (var(--vw-max) - var(--vw-min))), 32px);
+  --fs-3: clamp(32px, calc(32px + 8px * (100vi - var(--vw-min)) / (var(--vw-max) - var(--vw-min))), 40px);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-system, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: var(--fs-0);
+  line-height: var(--lead);
+  text-rendering: optimizeLegibility;
+}
+
+@supports (text-wrap: balance) {
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+}
+.prose {
+  max-width: var(--measure);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: var(--lead-tight);
+  margin: 0 0 0.5em 0;
+}
+
+h1 {
+  font-size: var(--fs-3);
+}
+
+h2 {
+  font-size: var(--fs-2);
+}
+
+h3 {
+  font-size: var(--fs-1);
+}
+
+h4 {
+  font-size: var(--fs-0);
+}
+
+h5 {
+  font-size: var(--fs--1);
+}
+
+h6 {
+  font-size: var(--fs--2);
+}
+
+p, ul, ol, blockquote, pre {
+  margin: 0 0 1em 0;
+}
+
+small, .small {
+  font-size: var(--fs--1);
+  line-height: var(--lead);
+}
+
+.lead {
+  font-size: var(--fs-1);
+  line-height: var(--lead-loose);
+}
+
+.kicker {
+  font-size: var(--fs--1);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.15;
+  margin: 2em 0;
+}
+
+.typo-container {
+  container-type: inline-size;
+  --cq-min: 320px;
+  --cq-max: 1200px;
+}
+@supports (width: 1cqi) {
+  .typo-container {
+    --fs--2: clamp(12px, calc(12px + 2px * (100cqi - var(--cq-min)) / (var(--cq-max) - var(--cq-min))), 14px);
+    --fs--1: clamp(14px, calc(14px + 2px * (100cqi - var(--cq-min)) / (var(--cq-max) - var(--cq-min))), 16px);
+    --fs-0: clamp(16px, calc(16px + 2px * (100cqi - var(--cq-min)) / (var(--cq-max) - var(--cq-min))), 18px);
+    --fs-1: clamp(20px, calc(20px + 4px * (100cqi - var(--cq-min)) / (var(--cq-max) - var(--cq-min))), 24px);
+    --fs-2: clamp(26px, calc(26px + 6px * (100cqi - var(--cq-min)) / (var(--cq-max) - var(--cq-min))), 32px);
+    --fs-3: clamp(32px, calc(32px + 8px * (100cqi - var(--cq-min)) / (var(--cq-max) - var(--cq-min))), 40px);
+  }
+}
+
+.measure {
+  max-width: var(--measure);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.hyphens {
+  hyphens: auto;
+}
+
+.tight {
+  line-height: var(--lead-tight);
+}
+
+.loose {
+  line-height: var(--lead-loose);
+}
+
+.fs--2 {
+  font-size: var(--fs--2);
+}
+
+.fs--1 {
+  font-size: var(--fs--1);
+}
+
+.fs-0 {
+  font-size: var(--fs-0);
+}
+
+.fs-1 {
+  font-size: var(--fs-1);
+}
+
+.fs-2 {
+  font-size: var(--fs-2);
+}
+
+.fs-3 {
+  font-size: var(--fs-3);
+}
+
 .container {
   width: 100%;
   max-width: 2560px;
@@ -1039,5 +1193,3 @@
   margin: 0;
   padding: 0;
 }
-
-/*# sourceMappingURL=minimal_grid.css.map */

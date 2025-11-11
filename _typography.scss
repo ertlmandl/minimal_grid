@@ -1,0 +1,171 @@
+// -----------------------------------------
+// TYPOGRAPHY (viewport-first + container opt-in)
+// -----------------------------------------
+//
+// Kurz, robust, lesbar. Viewport-basiert per clamp().
+// Optional: .typo-container schaltet identische Skala auf Container-Basis (cqi).
+//
+// Quellenideen: Utopia-Style Fluid Scales (clamp), Container Query Units (cqi).
+// -----------------------------------------
+
+@use "sass:map";
+@use "sass:string";
+
+// -----------------------------------------
+// CONFIG
+// -----------------------------------------
+
+$font-sans: ui-system, -apple-system, BlinkMacSystemFont, "Segoe UI",
+            Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+            "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+
+// Min/Max Referenzen für Fluid-Skala (Viewport)
+$vw-min: 360px !default;
+$vw-max: 1440px !default;
+
+// Typo-Stufen (min/max in PX) – bewusst schlanke Skala
+$type-steps: (
+  -2: (min: 12px, max: 14px),
+  -1: (min: 14px, max: 16px),
+   0: (min: 16px, max: 18px),
+   1: (min: 20px, max: 24px),
+   2: (min: 26px, max: 32px),
+   3: (min: 32px, max: 40px)
+) !default;
+
+// Container-Min/Max (für .typo-container); kann projektweise angepasst werden
+$cq-min: 320px !default;
+$cq-max: 1200px !default;
+
+// -----------------------------------------
+// INTERNAL: Token-Generator
+// -----------------------------------------
+
+@function fluid-token($min, $max, $axis-min, $axis-max, $unit) {
+  // clamp(min, calc(min + (max-min) * ((100<unit> - axis-min) / (axis-max - axis-min))), max)
+  $min-val: $min;
+  $max-val: $max;
+  $range: $max - $min;
+
+  // Build the calc expression as an unquoted string to avoid Sass math interpretation
+  @return string.unquote("clamp(#{$min-val}, calc(#{$min-val} + #{$range} * (100#{$unit} - #{$axis-min}) / (#{$axis-max} - #{$axis-min})), #{$max-val})");
+}
+
+@mixin define-fluid-steps($steps, $axis-min, $axis-max, $unit) {
+  @each $k, $pair in $steps {
+    $min: map.get($pair, min);
+    $max: map.get($pair, max);
+    --fs-#{$k}: #{fluid-token($min, $max, $axis-min, $axis-max, $unit)};
+  }
+}
+
+// -----------------------------------------
+// ROOT: Viewport-basierte Skala (Default)
+// -----------------------------------------
+
+:root {
+  // Leselängen & Rhythmus
+  --measure: 65ch;
+  --lead: 1.5;    // default line-height
+  --lead-tight: 1.2;
+  --lead-loose: 1.7;
+
+  // Viewport-basierte Font-Size Tokens (vi = logischer vw)
+  --vw-min: #{$vw-min};
+  --vw-max: #{$vw-max};
+
+  @include define-fluid-steps($type-steps, var(--vw-min), var(--vw-max), vi);
+}
+
+// -----------------------------------------
+// BASE ELEMENTS
+// -----------------------------------------
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: $font-sans;
+  font-size: var(--fs-0);
+  line-height: var(--lead);
+  text-rendering: optimizeLegibility;
+}
+
+@supports (text-wrap: balance) {
+  h1, h2, h3 { text-wrap: balance; }
+}
+
+.prose {
+  max-width: var(--measure);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: var(--lead-tight);
+  margin: 0 0 0.5em 0;
+}
+
+h1 { font-size: var(--fs-3); }
+h2 { font-size: var(--fs-2); }
+h3 { font-size: var(--fs-1); }
+h4 { font-size: var(--fs-0); }
+h5 { font-size: var(--fs--1); }
+h6 { font-size: var(--fs--2); }
+
+p, ul, ol, blockquote, pre {
+  margin: 0 0 1em 0;
+}
+
+small, .small { font-size: var(--fs--1); line-height: var(--lead); }
+.lead    { font-size: var(--fs-1);  line-height: var(--lead-loose); }
+.kicker  { font-size: var(--fs--1); letter-spacing: .04em; text-transform: uppercase; }
+
+// Optional: optische Absatztrennung mit wenig CSS-Rauschen
+hr {
+  border: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: .15;
+  margin: 2em 0;
+}
+
+// -----------------------------------------
+// CONTAINER-BASED TYPO: .typo-container
+// -----------------------------------------
+//
+// Aktiviert container-basierte Skala mit identischen Stufen,
+// gesteuert über cqi (Container Inline Size).
+// Fallback: Wenn cqi nicht verfügbar ist oder kein Container existiert,
+// verhalten sich cq* laut Spezifikation wie kleine Viewport-Units (sv*).
+// -----------------------------------------
+
+.typo-container {
+  // macht dieses Element zu einem Abfrage-Container
+  container-type: inline-size;
+
+  // Container-Range konfigurierbar
+  --cq-min: #{$cq-min};
+  --cq-max: #{$cq-max};
+
+  // Default: erbt Root-Tokens (Viewport). Wenn cqi verfügbar, überschreiben:
+  @supports (width: 1cqi) {
+    @include define-fluid-steps($type-steps, var(--cq-min), var(--cq-max), cqi);
+  }
+}
+
+// -----------------------------------------
+// UTILS (leichtgewichtige Lesbarkeitshilfen)
+// -----------------------------------------
+
+.measure      { max-width: var(--measure); }
+.nowrap       { white-space: nowrap; }
+.hyphens      { hyphens: auto; }
+.tight        { line-height: var(--lead-tight); }
+.loose        { line-height: var(--lead-loose); }
+
+// Optional: Schriftgrößen als Utilities – entspricht Token-Namen
+.fs--2 { font-size: var(--fs--2); }
+.fs--1 { font-size: var(--fs--1); }
+.fs-0  { font-size: var(--fs-0);  }
+.fs-1  { font-size: var(--fs-1);  }
+.fs-2  { font-size: var(--fs-2);  }
+.fs-3  { font-size: var(--fs-3);  }
