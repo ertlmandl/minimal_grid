@@ -46,9 +46,10 @@ $cq-max: 1200px !default;
   $min-val: $min;
   $max-val: $max;
   $range: $max - $min;
+  $axis-range: $axis-max - $axis-min;
 
-  // Build the calc expression as an unquoted string to avoid Sass math interpretation
-  @return string.unquote("clamp(#{$min-val}, calc(#{$min-val} + #{$range} * (100#{$unit} - #{$axis-min}) / (#{$axis-max} - #{$axis-min})), #{$max-val})");
+  // Build the calc expression - compute axis-range at compile time
+  @return string.unquote("clamp(#{$min-val}, calc(#{$min-val} + #{$range} * (100#{$unit} - #{$axis-min}) / #{$axis-range}), #{$max-val})");
 }
 
 @mixin define-fluid-steps($steps, $axis-min, $axis-max, $unit) {
@@ -71,10 +72,7 @@ $cq-max: 1200px !default;
   --lead-loose: 1.7;
 
   // Viewport-basierte Font-Size Tokens (vi = logischer vw)
-  --vw-min: #{$vw-min};
-  --vw-max: #{$vw-max};
-
-  @include define-fluid-steps($type-steps, var(--vw-min), var(--vw-max), vi);
+  @include define-fluid-steps($type-steps, $vw-min, $vw-max, vi);
 }
 
 // -----------------------------------------
@@ -142,13 +140,9 @@ hr {
   // macht dieses Element zu einem Abfrage-Container
   container-type: inline-size;
 
-  // Container-Range konfigurierbar
-  --cq-min: #{$cq-min};
-  --cq-max: #{$cq-max};
-
   // Default: erbt Root-Tokens (Viewport). Wenn cqi verfügbar, überschreiben:
   @supports (width: 1cqi) {
-    @include define-fluid-steps($type-steps, var(--cq-min), var(--cq-max), cqi);
+    @include define-fluid-steps($type-steps, $cq-min, $cq-max, cqi);
   }
 }
 
