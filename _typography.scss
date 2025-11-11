@@ -71,8 +71,8 @@ $cq-max: 1200px !default;
   --lead-tight: 1.2;
   --lead-loose: 1.7;
 
-  // Viewport-basierte Font-Size Tokens (vi = logischer vw)
-  @include define-fluid-steps($type-steps, $vw-min, $vw-max, vi);
+  // Viewport-basierte Font-Size Tokens (vw = viewport width)
+  @include define-fluid-steps($type-steps, $vw-min, $vw-max, vw);
 }
 
 // -----------------------------------------

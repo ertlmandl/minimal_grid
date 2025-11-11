@@ -3,12 +3,12 @@
   --lead: 1.5;
   --lead-tight: 1.2;
   --lead-loose: 1.7;
-  --fs--2: clamp(12px, calc(12px + 2px * (100vi - 360px) / 1080px), 14px);
-  --fs--1: clamp(14px, calc(14px + 2px * (100vi - 360px) / 1080px), 16px);
-  --fs-0: clamp(16px, calc(16px + 2px * (100vi - 360px) / 1080px), 18px);
-  --fs-1: clamp(20px, calc(20px + 4px * (100vi - 360px) / 1080px), 24px);
-  --fs-2: clamp(26px, calc(26px + 6px * (100vi - 360px) / 1080px), 32px);
-  --fs-3: clamp(32px, calc(32px + 8px * (100vi - 360px) / 1080px), 40px);
+  --fs--2: clamp(12px, calc(12px + 2px * (100vw - 360px) / 1080px), 14px);
+  --fs--1: clamp(14px, calc(14px + 2px * (100vw - 360px) / 1080px), 16px);
+  --fs-0: clamp(16px, calc(16px + 2px * (100vw - 360px) / 1080px), 18px);
+  --fs-1: clamp(20px, calc(20px + 4px * (100vw - 360px) / 1080px), 24px);
+  --fs-2: clamp(26px, calc(26px + 6px * (100vw - 360px) / 1080px), 32px);
+  --fs-3: clamp(32px, calc(32px + 8px * (100vw - 360px) / 1080px), 40px);
 }
 
 html {
