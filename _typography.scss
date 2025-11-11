@@ -9,6 +9,7 @@
 // -----------------------------------------
 
 @use "sass:map";
+@use "sass:math";
 @use "sass:string";
 
 // -----------------------------------------
@@ -42,15 +43,19 @@ $cq-max: 1200px !default;
 // -----------------------------------------
 
 @function fluid-token($min, $max, $axis-min, $axis-max, $unit) {
-  // clamp(min, calc(min + (max-min) * ((100<unit> - axis-min) / (axis-max - axis-min))), max)
+  // CSS calc() can only divide by unitless numbers, not by lengths
+  // So we need to extract numeric values for the division
   $min-val: $min;
   $max-val: $max;
-  $range: $max - $min;
-  $axis-range: $axis-max - $axis-min;
 
-  // Build the calc expression with explicit parentheses for cross-browser compatibility
-  // Using calc() explicitly and proper parentheses ensures Firefox, Safari, Chrome all work
-  @return string.unquote("clamp(#{$min-val}, calc(#{$min-val} + (#{$range}) * ((100#{$unit} - #{$axis-min}) / (#{$axis-range}))), #{$max-val})");
+  // Extract unitless numbers from px values for division
+  $range-unitless: math.div($max - $min, 1px);  // e.g., 8px / 1px = 8 (unitless)
+  $axis-min-unitless: math.div($axis-min, 1px);   // e.g., 360px / 1px = 360 (unitless)
+  $axis-range-unitless: math.div($axis-max - $axis-min, 1px);  // e.g., 1080px / 1px = 1080 (unitless)
+
+  // Build calc: min + range * ((100vw - min-vw) / axis-range)
+  // Division by unitless number is valid in CSS calc()
+  @return string.unquote("clamp(#{$min-val}, calc(#{$min-val} + #{$range-unitless} * ((100#{$unit} - #{$axis-min-unitless}px) / #{$axis-range-unitless})), #{$max-val})");
 }
 
 @mixin define-fluid-steps($steps, $axis-min, $axis-max, $unit) {
