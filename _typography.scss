@@ -1,28 +1,52 @@
-// -----------------------------------------
+// -----------------------------------------------------------------------------
 // TYPOGRAPHY (viewport-first + container opt-in)
-// -----------------------------------------
+// -----------------------------------------------------------------------------
 //
 // Kurz, robust, lesbar. Viewport-basiert per clamp().
 // Optional: .typo-container schaltet identische Skala auf Container-Basis (cqi).
 //
-// Quellenideen: Utopia-Style Fluid Scales (clamp), Container Query Units (cqi).
-// -----------------------------------------
+// -----------------------------------------------------------------------------
+// TYPOGRAPHY CONFIG OVERVIEW
+// -----------------------------------------------------------------------------
+// • $font-sans ............ Basis-Schriftfamilie
+// • $vw-min / $vw-max ..... Viewport-Range für Fluid Scale
+// • $cq-min / $cq-max ..... Container-Range (für .typo-container)
+// • $heading-size-mode .... globaler Heading-Faktor (large|normal|small)
+// • $heading-scales-override ... Feinanpassung einzelner Headings
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// IMPORTS
+// -----------------------------------------------------------------------------
 
 @use "sass:map";
 @use "sass:math";
 @use "sass:string";
 
-// -----------------------------------------
-// CONFIG
-// -----------------------------------------
+// -----------------------------------------------------------------------------
+// 1) PROJECT SETTINGS – Passe hier an
+// -----------------------------------------------------------------------------
 
-$font-sans: ui-system, -apple-system, BlinkMacSystemFont, "Segoe UI",
-            Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
-            "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+// 1. Schriftfamilie
+$font-sans: "Inter", system-ui, sans-serif !default;
 
-// Min/Max Referenzen für Fluid-Skala (Viewport)
+// 2. Min/Max Referenzen für Fluid-Skala (Viewport)
 $vw-min: 360px !default;
 $vw-max: 1440px !default;
+
+// 3. Container-Min/Max (für .typo-container)
+$cq-min: 320px !default;
+$cq-max: 1200px !default;
+
+// 4. Headings globaler Größenmodus
+$heading-size-mode: large !default; // large | normal | small
+
+// 5. Optionale, gezielte Projekt-Overrides (kombinierbar mit Mode)
+$heading-scales-override: () !default;
+
+// -----------------------------------------------------------------------------
+// 2) DESIGN SYSTEM DEFAULTS – meist unverändert
+// -----------------------------------------------------------------------------
 
 // Typo-Stufen (min/max in PX) – bewusst schlanke Skala
 $type-steps: (
@@ -34,28 +58,29 @@ $type-steps: (
    3: (min: 32px, max: 40px)
 ) !default;
 
-// Container-Min/Max (für .typo-container); kann projektweise angepasst werden
-$cq-min: 320px !default;
-$cq-max: 1200px !default;
+$heading-scales-presets: (
+  large:  (h1: 1.35, h2: 1.28, h3: 1.22, h4: 1.14, h5: 1.00, h6: 0.90),
+  normal: (h1: 1.00, h2: 1.00, h3: 1.00, h4: 1.00, h5: 1.00, h6: 1.00),
+  small:  (h1: 0.88, h2: 0.92, h3: 0.95, h4: 0.97, h5: 0.98, h6: 1.00)
+) !default;
 
-// -----------------------------------------
-// INTERNAL: Token-Generator
-// -----------------------------------------
+// -----------------------------------------------------------------------------
+// 3) SYSTEM LOGIC (intern)
+// -----------------------------------------------------------------------------
 
 @function fluid-token($min, $max, $axis-min, $axis-max, $unit) {
-  // CSS calc() can only divide by unitless numbers, not by lengths
-  // So we need to extract numeric values for the division
+  // CSS calc() kann nur durch einheitslose Zahlen teilen → Zahlen extrahieren
   $min-val: $min;
   $max-val: $max;
 
-  // Extract unitless numbers from px values for division
-  $range-unitless: math.div($max - $min, 1px);  // e.g., 8px / 1px = 8 (unitless)
-  $axis-min-unitless: math.div($axis-min, 1px);   // e.g., 360px / 1px = 360 (unitless)
-  $axis-range-unitless: math.div($axis-max - $axis-min, 1px);  // e.g., 1080px / 1px = 1080 (unitless)
+  $range-unitless: math.div($max - $min, 1px);
+  $axis-min-unitless: math.div($axis-min, 1px);
+  $axis-range-unitless: math.div($axis-max - $axis-min, 1px);
 
-  // Build calc: min + range * ((100vw - min-vw) / axis-range)
-  // Division by unitless number is valid in CSS calc()
-  @return string.unquote("clamp(#{$min-val}, calc(#{$min-val} + #{$range-unitless} * ((100#{$unit} - #{$axis-min-unitless}px) / #{$axis-range-unitless})), #{$max-val})");
+  // clamp(min, min + range * ((100<unit> - axis-min) / axis-range), max)
+  @return string.unquote(
+    "clamp(#{$min-val}, calc(#{$min-val} + #{$range-unitless} * ((100#{$unit} - #{$axis-min-unitless}px) / #{$axis-range-unitless})), #{$max-val})"
+  );
 }
 
 @mixin define-fluid-steps($steps, $axis-min, $axis-max, $unit) {
@@ -66,9 +91,9 @@ $cq-max: 1200px !default;
   }
 }
 
-// -----------------------------------------
-// ROOT: Viewport-basierte Skala (Default)
-// -----------------------------------------
+// -----------------------------------------------------------------------------
+// 4) ROOT: Viewport-basierte Skala (Default)
+// -----------------------------------------------------------------------------
 
 :root {
   // Leselängen & Rhythmus
@@ -81,11 +106,12 @@ $cq-max: 1200px !default;
   @include define-fluid-steps($type-steps, $vw-min, $vw-max, vw);
 }
 
-// -----------------------------------------
-// BASE ELEMENTS
-// -----------------------------------------
+// -----------------------------------------------------------------------------
+// 5) BASE ELEMENTS
+// -----------------------------------------------------------------------------
 
 html { -webkit-text-size-adjust: 100%; }
+
 body {
   margin: 0;
   font-family: $font-sans;
@@ -102,28 +128,13 @@ body {
   max-width: var(--measure);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: var(--lead-tight);
-  margin: 0 0 0.5em 0;
-}
-
-h1 { font-size: var(--fs-3); }
-h2 { font-size: var(--fs-2); }
-h3 { font-size: var(--fs-1); }
-h4 { font-size: var(--fs-0); }
-h5 { font-size: var(--fs--1); }
-h6 { font-size: var(--fs--2); }
-
-p, ul, ol, blockquote, pre {
-  margin: 0 0 1em 0;
-}
+p, ul, ol, blockquote, pre { margin: 0 0 1em 0; }
 
 small, .small { font-size: var(--fs--1); line-height: var(--lead); }
 .lead    { font-size: var(--fs-1);  line-height: var(--lead-loose); }
 .kicker  { font-size: var(--fs--1); letter-spacing: .04em; text-transform: uppercase; }
 
-// Optional: optische Absatztrennung mit wenig CSS-Rauschen
+// Optional: optische Absatztrennung
 hr {
   border: 0;
   height: 1px;
@@ -132,15 +143,40 @@ hr {
   margin: 2em 0;
 }
 
-// -----------------------------------------
-// CONTAINER-BASED TYPO: .typo-container
-// -----------------------------------------
+// -----------------------------------------------------------------------------
+// 6) HEADINGS (Tokens + skalierbare Presets)
+// -----------------------------------------------------------------------------
+
+@function _heading-scales() {
+  $preset: map.get($heading-scales-presets, $heading-size-mode);
+  @return map.merge($preset, $heading-scales-override);
+}
+
+$__h-scales: _heading-scales();
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: var(--lead-tight);
+  margin: 0 0 0.6em 0;
+}
+
+// Skaliert fluid via clamp-Tokens + Faktor
+h1 { font-size: calc(var(--fs-3)  * #{map.get($__h-scales, h1)}); }
+h2 { font-size: calc(var(--fs-2)  * #{map.get($__h-scales, h2)}); }
+h3 { font-size: calc(var(--fs-1)  * #{map.get($__h-scales, h3)}); }
+h4 { font-size: calc(var(--fs-0)  * #{map.get($__h-scales, h4)}); }
+h5 { font-size: calc(var(--fs--1) * #{map.get($__h-scales, h5)}); }
+h6 { font-size: calc(var(--fs--2) * #{map.get($__h-scales, h6)}); }
+
+// -----------------------------------------------------------------------------
+// 7) CONTAINER-BASED TYPO: .typo-container
+// -----------------------------------------------------------------------------
 //
 // Aktiviert container-basierte Skala mit identischen Stufen,
 // gesteuert über cqi (Container Inline Size).
 // Fallback: Wenn cqi nicht verfügbar ist oder kein Container existiert,
 // verhalten sich cq* laut Spezifikation wie kleine Viewport-Units (sv*).
-// -----------------------------------------
+// -----------------------------------------------------------------------------
 
 .typo-container {
   // macht dieses Element zu einem Abfrage-Container
@@ -152,15 +188,15 @@ hr {
   }
 }
 
-// -----------------------------------------
-// UTILS (leichtgewichtige Lesbarkeitshilfen)
-// -----------------------------------------
+// -----------------------------------------------------------------------------
+// 8) UTILS (leichtgewichtige Lesbarkeitshilfen)
+// -----------------------------------------------------------------------------
 
-.measure      { max-width: var(--measure); }
-.nowrap       { white-space: nowrap; }
-.hyphens      { hyphens: auto; }
-.tight        { line-height: var(--lead-tight); }
-.loose        { line-height: var(--lead-loose); }
+.measure { max-width: var(--measure); }
+.nowrap  { white-space: nowrap; }
+.hyphens { hyphens: auto; }
+.tight   { line-height: var(--lead-tight); }
+.loose   { line-height: var(--lead-loose); }
 
 // Optional: Schriftgrößen als Utilities – entspricht Token-Namen
 .fs--2 { font-size: var(--fs--2); }
