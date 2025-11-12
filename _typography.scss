@@ -1,0 +1,40 @@
+// typography.scss
+// ============================================
+// FLUID TYPOGRAPHY BOILERPLATE
+// ============================================
+
+@use "sass:math";
+
+// Config (nur diese Werte anpassen)
+$font-min: 16;      // Kleinste Schriftgröße in px
+$font-max: 20;      // Größte Schriftgröße in px
+$screen-min: 320;   // Kleinster Viewport in px
+$screen-max: 1920;  // Größter Viewport in px
+
+// Auto-Berechnung (nicht anfassen)
+$slope: math.div($font-max - $font-min, $screen-max - $screen-min);
+$base: $font-min - ($slope * $screen-min);
+
+:root {
+  font-size: clamp(
+    #{$font-min}px,
+    #{$base}px + #{$slope * 100}vw,
+    #{$font-max}px
+  );
+}
+
+// Typography Scale (alles skaliert automatisch mit)
+body {
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+h1 { font-size: 2.5em; line-height: 1.2; }
+h2 { font-size: 2em; line-height: 1.3; }
+h3 { font-size: 1.5em; line-height: 1.4; }
+h4 { font-size: 1.25em; line-height: 1.4; }
+h5 { font-size: 1em; line-height: 1.5; }
+h6 { font-size: 0.875em; line-height: 1.5; }
+
+p, ul, ol { font-size: 1em; }
+small { font-size: 0.875em; }
