@@ -15,7 +15,7 @@
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            padding: 20px 0;
+            padding: 2vw 0;
             color: #2d3748;
         }
 
@@ -27,7 +27,7 @@
             right: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 15px 20px;
+            padding: 1.5vw 2vw;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -61,14 +61,14 @@
 
         /* Main content with top spacing */
         .main-content {
-            margin-top: 80px;
+            margin-top: 8vw;
         }
 
         .section {
             background: white;
-            padding: 40px;
+            padding: 4vw;
             border-radius: 16px;
-            margin-bottom: 30px;
+            margin-bottom: 3vw;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
@@ -76,22 +76,22 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-align: center;
-            padding: 60px 40px;
+            padding: 6vw 4vw;
         }
 
         .section-hero h1 {
-            margin-bottom: 20px;
+            margin-bottom: 2vw;
         }
 
         .scale-demo {
             background: #f7fafc;
-            padding: 30px;
+            padding: 3vw;
             border-radius: 12px;
-            margin: 20px 0;
+            margin: 2vw 0;
         }
 
         .scale-item {
-            padding: 20px 0;
+            padding: 2vw 0;
             border-bottom: 1px solid #e2e8f0;
         }
 
@@ -109,7 +109,7 @@
             background: white;
             padding: 4px 12px;
             border-radius: 4px;
-            margin-right: 20px;
+            margin-right: 2vw;
         }
 
         .font-size-display {
@@ -117,24 +117,24 @@
             font-family: 'Courier New', monospace;
             color: #718096;
             font-size: 0.8em;
-            margin-left: 10px;
+            margin-left: 1vw;
             opacity: 0.7;
         }
 
         .info-box {
             background: linear-gradient(135deg, #fff5e6 0%, #ffe0b2 100%);
             border-left: 4px solid #ff9800;
-            padding: 20px;
+            padding: 2vw;
             border-radius: 8px;
-            margin: 20px 0;
+            margin: 2vw 0;
         }
 
         .config-box {
             background: #2d3748;
             color: #68d391;
-            padding: 20px;
+            padding: 2vw;
             border-radius: 8px;
-            margin: 20px 0;
+            margin: 2vw 0;
             font-family: 'Courier New', monospace;
             overflow-x: auto;
         }
@@ -146,8 +146,8 @@
 
         .demo-grid {
             display: grid;
-            gap: 20px;
-            margin: 20px 0;
+            gap: 2vw;
+            margin: 2vw 0;
         }
 
         @media (min-width: 768px) {
@@ -159,7 +159,7 @@
         .demo-card {
             background: white;
             border: 2px solid #e2e8f0;
-            padding: 30px;
+            padding: 3vw;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
@@ -168,7 +168,7 @@
             background: linear-gradient(to right, #667eea, #764ba2);
             height: 4px;
             border-radius: 2px;
-            margin: 30px 0;
+            margin: 3vw 0;
             position: relative;
         }
 
@@ -204,8 +204,8 @@
 
         .comparison-box {
             display: grid;
-            gap: 20px;
-            margin: 20px 0;
+            gap: 2vw;
+            margin: 2vw 0;
         }
 
         @media (min-width: 768px) {
@@ -215,7 +215,7 @@
         }
 
         .comparison-item {
-            padding: 20px;
+            padding: 2vw;
             border-radius: 8px;
             border: 2px solid #e2e8f0;
         }
@@ -233,12 +233,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 2vw 0;
             font-size: 0.9em;
         }
 
         th, td {
-            padding: 12px;
+            padding: 1.2vw;
             text-align: left;
             border-bottom: 1px solid #e2e8f0;
         }
@@ -274,7 +274,7 @@
             <div class="section section-hero">
                 <h1>🎨 Fluid Typography System</h1>
                 <p>Ein einfaches, skalierbares Typografie-System basierend auf CSS clamp()</p>
-                <p style="margin-top: 10px; opacity: 0.9;">Ändern Sie die Browsergröße und beobachten Sie die fließende Skalierung</p>
+                <p style="margin-top: 1vw; opacity: 0.9;">Ändern Sie die Browsergröße und beobachten Sie die fließende Skalierung</p>
             </div>
 
             <!-- Live Scale Demo -->
@@ -316,7 +316,7 @@
                 </div>
 
                 <div class="info-box">
-                    <strong>💡 Wie es funktioniert:</strong> Die Basis-Schriftgröße skaliert von 16px bei 320px Viewport bis 20px bei 1920px Viewport. Alle Überschriften verwenden relative Einheiten (em) und skalieren automatisch mit.
+                    <strong>💡 Wie es funktioniert:</strong> Die Basis-Schriftgröße skaliert von 16px bei 680px Viewport bis ~47px bei 2000px Viewport mit 2.35vw. Alle Überschriften verwenden relative Einheiten (em) und skalieren automatisch proportional mit.
                 </div>
             </div>
 
@@ -327,19 +327,18 @@
 
                 <div class="config-box">
                     <pre>// Config (nur diese Werte anpassen)
-$font-min: 16;      // Kleinste Schriftgröße in px
-$font-max: 20;      // Größte Schriftgröße in px
-$screen-min: 320;   // Kleinster Viewport in px
-$screen-max: 1920;  // Größter Viewport in px
+$viewport-min: 680;    // Kleinster Viewport in px
+$viewport-max: 2000;   // Größter Viewport in px
+$font-min: 16;         // Basis-Schriftgröße in px
 
 // Auto-Berechnung (nicht anfassen)
-$slope: ($font-max - $font-min) / ($screen-max - $screen-min);
-$base: $font-min - ($slope * $screen-min);
+$base-vw: math.div($font-min, $viewport-min) * 100;  // ≈ 2.35vw
+$font-max: math.div($base-vw * $viewport-max, 100);  // ≈ 47px
 
 :root {
   font-size: clamp(
     #{$font-min}px,
-    #{$base}px + #{$slope * 100}vw,
+    #{$base-vw}vw,
     #{$font-max}px
   );
 }</pre>
@@ -355,24 +354,24 @@ $base: $font-min - ($slope * $screen-min);
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>$font-min</code></td>
-                            <td>16px</td>
-                            <td>Minimale Basis-Schriftgröße bei kleinstem Viewport</td>
-                        </tr>
-                        <tr>
-                            <td><code>$font-max</code></td>
-                            <td>20px</td>
-                            <td>Maximale Basis-Schriftgröße bei größtem Viewport</td>
-                        </tr>
-                        <tr>
-                            <td><code>$screen-min</code></td>
-                            <td>320px</td>
+                            <td><code>$viewport-min</code></td>
+                            <td>680px</td>
                             <td>Kleinste zu unterstützende Viewport-Breite</td>
                         </tr>
                         <tr>
-                            <td><code>$screen-max</code></td>
-                            <td>1920px</td>
+                            <td><code>$viewport-max</code></td>
+                            <td>2000px</td>
                             <td>Größte Viewport-Breite für Skalierung</td>
+                        </tr>
+                        <tr>
+                            <td><code>$font-min</code></td>
+                            <td>16px</td>
+                            <td>Basis-Schriftgröße (bei $viewport-min)</td>
+                        </tr>
+                        <tr>
+                            <td><code>$base-vw</code></td>
+                            <td>~2.35vw</td>
+                            <td>Berechneter vw-Wert für proportionale Skalierung</td>
                         </tr>
                     </tbody>
                 </table>
@@ -389,8 +388,8 @@ $base: $font-min - ($slope * $screen-min);
                             <th>Element</th>
                             <th>Größe</th>
                             <th>Line-Height</th>
-                            <th>Bei 320px</th>
-                            <th>Bei 1920px</th>
+                            <th>Bei 680px</th>
+                            <th>Bei 2000px</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -399,42 +398,42 @@ $base: $font-min - ($slope * $screen-min);
                             <td>2.5em</td>
                             <td>1.2</td>
                             <td>40px</td>
-                            <td>50px</td>
+                            <td>~118px</td>
                         </tr>
                         <tr>
                             <td><code>h2</code></td>
                             <td>2em</td>
                             <td>1.3</td>
                             <td>32px</td>
-                            <td>40px</td>
+                            <td>~94px</td>
                         </tr>
                         <tr>
                             <td><code>h3</code></td>
                             <td>1.5em</td>
                             <td>1.4</td>
                             <td>24px</td>
-                            <td>30px</td>
+                            <td>~71px</td>
                         </tr>
                         <tr>
                             <td><code>h4</code></td>
                             <td>1.25em</td>
                             <td>1.4</td>
                             <td>20px</td>
-                            <td>25px</td>
+                            <td>~59px</td>
                         </tr>
                         <tr>
                             <td><code>body/p</code></td>
                             <td>1em</td>
                             <td>1.5</td>
                             <td>16px</td>
-                            <td>20px</td>
+                            <td>~47px</td>
                         </tr>
                         <tr>
                             <td><code>small</code></td>
                             <td>0.875em</td>
                             <td>1.5</td>
                             <td>14px</td>
-                            <td>17.5px</td>
+                            <td>~41px</td>
                         </tr>
                     </tbody>
                 </table>
@@ -529,15 +528,14 @@ $base: $font-min - ($slope * $screen-min);
                 <h2>🚀 Verwendung</h2>
 
                 <h3>1. Konfiguration anpassen</h3>
-                <p>Öffnen Sie <code>_typography.scss</code> und passen Sie die 4 Werte an:</p>
+                <p>Öffnen Sie <code>_typography.scss</code> und passen Sie die 3 Werte an:</p>
                 <div class="config-box">
-                    <pre>$font-min: 16;      // Ihre minimale Schriftgröße
-$font-max: 20;      // Ihre maximale Schriftgröße
-$screen-min: 320;   // Kleinster Viewport
-$screen-max: 1920;  // Größter Viewport</pre>
+                    <pre>$viewport-min: 680;    // Kleinster Viewport
+$viewport-max: 2000;   // Größter Viewport
+$font-min: 16;         // Basis-Schriftgröße</pre>
                 </div>
 
-                <h3 style="margin-top: 30px;">2. HTML schreiben</h3>
+                <h3 style="margin-top: 3vw;">2. HTML schreiben</h3>
                 <p>Verwenden Sie einfach semantisches HTML:</p>
                 <div class="config-box">
                     <pre>&lt;h1&gt;Hauptüberschrift&lt;/h1&gt;
@@ -545,7 +543,7 @@ $screen-max: 1920;  // Größter Viewport</pre>
 &lt;h2&gt;Unterüberschrift&lt;/h2&gt;</pre>
                 </div>
 
-                <h3 style="margin-top: 30px;">3. Fertig!</h3>
+                <h3 style="margin-top: 3vw;">3. Fertig!</h3>
                 <p>Das System kümmert sich automatisch um die Skalierung. Keine weiteren Schritte nötig.</p>
             </div>
 
@@ -553,7 +551,7 @@ $screen-max: 1920;  // Größter Viewport</pre>
             <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
                 <h2>🎯 Weitere Beispiele</h2>
                 <p>Schauen Sie sich auch die anderen Beispiele an:</p>
-                <ul style="margin-top: 20px; line-height: 2;">
+                <ul style="margin-top: 2vw; line-height: 2;">
                     <li><a href="01-basic.html" style="color: white; text-decoration: underline;">01-basic.html</a> - Grundlegende Grid-Funktionen</li>
                     <li><a href="02-advanced.html" style="color: white; text-decoration: underline;">02-advanced.html</a> - Fortgeschrittene Grid-Features</li>
                     <li><a href="03-website-layout.html" style="color: white; text-decoration: underline;">03-website-layout.html</a> - Realistisches Website-Layout</li>
@@ -616,11 +614,16 @@ $screen-max: 1920;  // Größter Viewport</pre>
         // Update on load
         updateViewportInfo();
 
-        // Update on resize
-        let resizeTimeout;
+        // Update on resize (continuously during scaling)
+        let isUpdating = false;
         window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(updateViewportInfo, 100);
+            if (!isUpdating) {
+                isUpdating = true;
+                requestAnimationFrame(() => {
+                    updateViewportInfo();
+                    isUpdating = false;
+                });
+            }
         });
     </script>
 </body>
