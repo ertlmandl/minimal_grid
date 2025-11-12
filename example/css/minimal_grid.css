@@ -1,11 +1,16 @@
 :root {
-  font-size: clamp(16px, 2.3529411765vw, 47.0588235294px);
+  font-size: clamp(1rem, 2.3529411765vw, 2.4705882353rem);
 }
 
 body {
   font-size: 1em;
   line-height: 1.5;
   font-family: "Inter", system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
 }
 
 h1 {
@@ -40,6 +45,8 @@ h6 {
 
 p, ul, ol {
   font-size: 1em;
+  margin-top: 0;
+  margin-bottom: 1em;
 }
 
 small {

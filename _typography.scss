@@ -1,4 +1,3 @@
-// typography.scss
 // ----------------------------------------------------------------
 // TRUE PROPORTIONAL SCALING
 // ----------------------------------------------------------------
@@ -7,16 +6,20 @@
 
 // Config
 $viewport-min: 680;
-$viewport-max: 2000;
-$font-min: 16;
+$viewport-max: 1680;
+$font-min-px: 16; // intern in px rechnen
 $font-sans: "Inter", system-ui, sans-serif !default;
 
-// Berechnung
-$base-vw: math.div($font-min, $viewport-min) * 100;
-$font-max: math.div($base-vw * $viewport-max, 100);
+// Berechnung (mit px)
+$base-vw: math.div($font-min-px, $viewport-min) * 100; // z.B. 16/680*100 ≈ 2.352vw
+$font-max-px: math.div($base-vw * $viewport-max, 100) * 1px; // ergibt px-Wert
+
+// Für clamp() in rem umrechnen (Browser-Default 16px → 1rem)
+$font-min-rem: math.div($font-min-px, 16);
+$font-max-rem: math.div($font-max-px, 16px);
 
 :root {
-  font-size: clamp(#{$font-min}px, #{$base-vw}vw, #{$font-max}px);
+  font-size: clamp(#{$font-min-rem}rem, #{$base-vw}vw, #{$font-max-rem}rem);
 }
 
 // Typography Scale
@@ -26,6 +29,11 @@ body {
   font-family: $font-sans;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
 h1 { font-size: 2.5em; line-height: 1.2; }
 h2 { font-size: 2em; line-height: 1.3; }
 h3 { font-size: 1.5em; line-height: 1.4; }
@@ -33,5 +41,10 @@ h4 { font-size: 1.25em; line-height: 1.4; }
 h5 { font-size: 1.125em; line-height: 1.5; }
 h6 { font-size: 1em; line-height: 1.5; }
 
-p, ul, ol { font-size: 1em; }
+p, ul, ol { 
+  font-size: 1em;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
 small { font-size: 0.875em; }
