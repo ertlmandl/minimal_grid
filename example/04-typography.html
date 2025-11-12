@@ -3,54 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimal Grid - Typography System</title>
+    <title>Minimal Grid - Fluid Typography System</title>
     <link rel="stylesheet" href="css/minimal_grid.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: #f5f5f5;
-            padding: 40px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
             color: #2d3748;
+        }
+
+        /* Viewport Info Bar - Fixed at top */
+        .viewport-info {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-family: 'Courier New', monospace;
+        }
+
+        .viewport-width,
+        .breakpoint-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .viewport-value,
+        .breakpoint-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 6px;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Main content with top spacing */
+        .main-content {
+            margin-top: 80px;
         }
 
         .section {
             background: white;
             padding: 40px;
-            border-radius: 12px;
+            border-radius: 16px;
             margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .section-dark {
+        .section-hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            text-align: center;
+            padding: 60px 40px;
         }
 
-        .demo-box {
+        .section-hero h1 {
+            margin-bottom: 20px;
+        }
+
+        .scale-demo {
             background: #f7fafc;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
+            padding: 30px;
+            border-radius: 12px;
             margin: 20px 0;
         }
 
-        .section-dark .demo-box {
-            background: rgba(255, 255, 255, 0.1);
-            border-left-color: rgba(255, 255, 255, 0.5);
+        .scale-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .token-display {
+        .scale-item:last-child {
+            border-bottom: none;
+        }
+
+        .scale-label {
+            display: inline-block;
+            min-width: 100px;
+            font-family: 'Courier New', monospace;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 0.9em;
+            background: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-right: 20px;
+        }
+
+        .font-size-display {
+            display: inline-block;
+            font-family: 'Courier New', monospace;
+            color: #718096;
+            font-size: 0.8em;
+            margin-left: 10px;
+            opacity: 0.7;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe0b2 100%);
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .config-box {
             background: #2d3748;
             color: #68d391;
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
             font-family: 'Courier New', monospace;
-            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        .config-box pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .demo-grid {
+            display: grid;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (min-width: 768px) {
+            .demo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .demo-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .visual-ruler {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            height: 4px;
+            border-radius: 2px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .ruler-marker {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: #2d3748;
+            top: -8px;
+        }
+
+        .ruler-marker:after {
+            content: attr(data-size);
+            position: absolute;
+            top: 22px;
+            left: -20px;
+            font-size: 0.7em;
+            color: #718096;
+            font-family: 'Courier New', monospace;
+        }
+
+        code {
+            background: #f7fafc;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #667eea;
+        }
+
+        .prose {
+            max-width: 65ch;
+        }
+
+        .comparison-box {
+            display: grid;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (min-width: 768px) {
+            .comparison-box {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .comparison-item {
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .comparison-before {
+            background: #fff5f5;
+            border-color: #fc8181;
+        }
+
+        .comparison-after {
+            background: #f0fff4;
+            border-color: #68d391;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
+            font-size: 0.9em;
         }
 
         th, td {
@@ -65,417 +249,379 @@
             color: #2d3748;
         }
 
-        .visual-scale {
-            margin: 30px 0;
-        }
-
-        .scale-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .scale-label {
-            display: inline-block;
-            width: 80px;
-            font-family: 'Courier New', monospace;
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        code {
+        tr:hover {
             background: #f7fafc;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
-
-        .section-dark code {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .highlight-box {
-            background: #fff5e6;
-            border: 2px solid #ff9800;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
-        .grid-demo {
-            display: grid;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        @media (min-width: 768px) {
-            .grid-demo {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .container-demo {
-            border: 2px dashed #667eea;
-            padding: 30px;
-            border-radius: 8px;
-            margin: 20px 0;
-            resize: horizontal;
-            overflow: auto;
-            min-width: 320px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="xs:text-center">📝 Typography System</h1>
-        <p class="lead xs:text-center">Ein modernes, fluides Typography-System mit Viewport- und Container-Queries</p>
-
-        <!-- EINFÜHRUNG -->
-        <div class="section">
-            <h2>Übersicht</h2>
-            <p>Das Minimal Grid Typography System bietet eine schlanke, robuste und lesbare Typografie-Skala basierend auf modernen CSS-Features:</p>
-            <ul>
-                <li><strong>Viewport-basiert:</strong> Fluid Scaling mit <code>clamp()</code> und <code>vi</code> Units</li>
-                <li><strong>Container Queries:</strong> Optional mit <code>.typo-container</code></li>
-                <li><strong>6 Größenstufen:</strong> Von <code>--fs--2</code> bis <code>--fs-3</code></li>
-                <li><strong>Semantic HTML:</strong> Automatisches Styling für <code>h1</code>-<code>h6</code>, <code>p</code>, etc.</li>
-            </ul>
+    <!-- Viewport Info Bar -->
+    <div class="viewport-info">
+        <div class="viewport-width">
+            <span class="label">Viewport:</span>
+            <span class="viewport-value" id="viewportWidth">-</span>
         </div>
-
-        <!-- HEADING SCALE -->
-        <div class="section">
-            <h2>Überschriften-Skala</h2>
-            <p>Alle Überschriften skalieren fluid zwischen den definierten Min/Max-Werten:</p>
-
-            <div class="visual-scale">
-                <div class="scale-item">
-                    <span class="scale-label">h1 / fs-3</span>
-                    <h1 style="margin: 0;">The quick brown fox jumps</h1>
-                </div>
-                <div class="scale-item">
-                    <span class="scale-label">h2 / fs-2</span>
-                    <h2 style="margin: 0;">The quick brown fox jumps</h2>
-                </div>
-                <div class="scale-item">
-                    <span class="scale-label">h3 / fs-1</span>
-                    <h3 style="margin: 0;">The quick brown fox jumps</h3>
-                </div>
-                <div class="scale-item">
-                    <span class="scale-label">h4 / fs-0</span>
-                    <h4 style="margin: 0;">The quick brown fox jumps</h4>
-                </div>
-                <div class="scale-item">
-                    <span class="scale-label">h5 / fs--1</span>
-                    <h5 style="margin: 0;">The quick brown fox jumps</h5>
-                </div>
-                <div class="scale-item">
-                    <span class="scale-label">h6 / fs--2</span>
-                    <h6 style="margin: 0;">The quick brown fox jumps</h6>
-                </div>
-            </div>
-
-            <div class="highlight-box">
-                <strong>💡 Tipp:</strong> Ändere die Browserbreite, um die fluide Skalierung zu sehen!
-            </div>
-        </div>
-
-        <!-- FONT SIZE TOKENS -->
-        <div class="section">
-            <h2>Font-Size Tokens</h2>
-            <p>Das System definiert 6 CSS Custom Properties für flexible Font-Sizes:</p>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Token</th>
-                        <th>Min Size</th>
-                        <th>Max Size</th>
-                        <th>Verwendung</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>var(--fs--2)</code></td>
-                        <td>12px</td>
-                        <td>14px</td>
-                        <td>h6, sehr kleine Texte</td>
-                    </tr>
-                    <tr>
-                        <td><code>var(--fs--1)</code></td>
-                        <td>14px</td>
-                        <td>16px</td>
-                        <td>h5, small, .small, .kicker</td>
-                    </tr>
-                    <tr>
-                        <td><code>var(--fs-0)</code></td>
-                        <td>16px</td>
-                        <td>18px</td>
-                        <td>Body-Text, h4, Basis</td>
-                    </tr>
-                    <tr>
-                        <td><code>var(--fs-1)</code></td>
-                        <td>20px</td>
-                        <td>24px</td>
-                        <td>h3, .lead</td>
-                    </tr>
-                    <tr>
-                        <td><code>var(--fs-2)</code></td>
-                        <td>26px</td>
-                        <td>32px</td>
-                        <td>h2</td>
-                    </tr>
-                    <tr>
-                        <td><code>var(--fs-3)</code></td>
-                        <td>32px</td>
-                        <td>40px</td>
-                        <td>h1</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="demo-box">
-                <p><strong>Beispiel-Verwendung:</strong></p>
-                <p><code>.custom-title { font-size: var(--fs-2); }</code></p>
-            </div>
-        </div>
-
-        <!-- UTILITY CLASSES -->
-        <div class="section">
-            <h2>Utility-Klassen</h2>
-            <p>Verwende diese Klassen für schnelles Styling:</p>
-
-            <h3>Font-Size Klassen</h3>
-            <div class="grid-demo">
-                <div class="demo-box">
-                    <div class="fs--2">Font Size -2 (12px-14px)</div>
-                </div>
-                <div class="demo-box">
-                    <div class="fs--1">Font Size -1 (14px-16px)</div>
-                </div>
-                <div class="demo-box">
-                    <div class="fs-0">Font Size 0 (16px-18px)</div>
-                </div>
-                <div class="demo-box">
-                    <div class="fs-1">Font Size 1 (20px-24px)</div>
-                </div>
-                <div class="demo-box">
-                    <div class="fs-2">Font Size 2 (26px-32px)</div>
-                </div>
-                <div class="demo-box">
-                    <div class="fs-3">Font Size 3 (32px-40px)</div>
-                </div>
-            </div>
-
-            <h3>Spezielle Text-Stile</h3>
-            <div class="demo-box">
-                <p class="lead">Lead Text – Größer und luftiger für Einleitungen (fs-1 + loose line-height)</p>
-            </div>
-            <div class="demo-box">
-                <p class="kicker">Kicker Text – Klein, uppercase, letter-spacing</p>
-            </div>
-            <div class="demo-box">
-                <p><small>Small Text – Kleinere Schrift für Nebensächliches</small></p>
-            </div>
-
-            <h3>Line-Height Klassen</h3>
-            <div class="grid-demo">
-                <div class="demo-box">
-                    <p class="tight">Tight Line-Height (1.2) – Für Überschriften und kompakte Texte. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="demo-box">
-                    <p>Normal Line-Height (1.5) – Standard für Fließtext. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="demo-box">
-                    <p class="loose">Loose Line-Height (1.7) – Für bessere Lesbarkeit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-            </div>
-
-            <h3>Weitere Utilities</h3>
-            <div class="demo-box">
-                <p class="measure">Die <code>.measure</code> Klasse limitiert die Zeilenlänge auf 65 Zeichen für optimale Lesbarkeit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <div class="demo-box">
-                <p class="nowrap">Die <code>.nowrap</code> Klasse verhindert Zeilenumbrüche.</p>
-            </div>
-            <div class="demo-box">
-                <p class="hyphens">Die <code>.hyphens</code> Klasse aktiviert automatische Silbentrennung für längere deutsche Wörter wie Donaudampfschifffahrtsgesellschaftskapitän.</p>
-            </div>
-        </div>
-
-        <!-- SEMANTIC ELEMENTS -->
-        <div class="section">
-            <h2>Semantische HTML-Elemente</h2>
-            <p>Das Typography-System styled automatisch alle Standard-HTML-Elemente:</p>
-
-            <div class="demo-box prose">
-                <h3>Beispiel-Artikel</h3>
-                <p>Dies ist ein normaler Absatz mit <strong>fetter</strong> und <em>kursiver</em> Formatierung. Der Text hat automatisch die richtige Schriftgröße und Zeilenhöhe.</p>
-
-                <h4>Eine Untere Überschrift</h4>
-                <p>Hier ist eine unsortierte Liste:</p>
-                <ul>
-                    <li>Erster Listenpunkt</li>
-                    <li>Zweiter Listenpunkt</li>
-                    <li>Dritter Listenpunkt mit mehr Text, um zu zeigen, wie mehrzeilige Einträge aussehen</li>
-                </ul>
-
-                <p>Und hier eine sortierte Liste:</p>
-                <ol>
-                    <li>Schritt eins</li>
-                    <li>Schritt zwei</li>
-                    <li>Schritt drei</li>
-                </ol>
-
-                <hr>
-
-                <blockquote>
-                    <p>Dies ist ein Zitat. Es könnte ein inspirierendes oder wichtiges Statement sein, das hervorgehoben werden soll.</p>
-                </blockquote>
-
-                <p><small>Dies ist kleinerer Text für Fußnoten oder weniger wichtige Informationen.</small></p>
-            </div>
-        </div>
-
-        <!-- CONTAINER QUERIES -->
-        <div class="section-dark section">
-            <h2>Container Queries mit .typo-container</h2>
-            <p>Das besondere Feature: Container-basierte Typografie! Füge <code>.typo-container</code> hinzu, und die Schriftgrößen skalieren basierend auf der Container-Breite, nicht dem Viewport.</p>
-
-            <div class="highlight-box" style="background: rgba(255, 255, 255, 0.95); color: #2d3748;">
-                <strong>🎯 Interaktive Demo:</strong> Ziehe am rechten Rand der Box unten, um die Container-Breite zu ändern!
-            </div>
-
-            <div class="container-demo typo-container" style="background: white; color: #2d3748;">
-                <h2>Container-Query Demo</h2>
-                <p class="lead">Diese Überschrift und der Text skalieren mit der Container-Breite!</p>
-                <p>Normal viewport-basiertes Text würde sich nur ändern, wenn du die gesamte Browser-Breite änderst. Aber mit <code>.typo-container</code> reagiert der Text auf die Größe dieses Containers.</p>
-                <h3>Probiere es aus</h3>
-                <p>Ziehe am rechten Rand dieses Kastens und beobachte, wie sich die Schriftgrößen anpassen.</p>
-            </div>
-
-            <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 8px; margin-top: 20px;">
-                <h4>Wie es funktioniert:</h4>
-                <ul>
-                    <li><code>container-type: inline-size</code> macht das Element zu einem Container Query Context</li>
-                    <li>Verwendet <code>cqi</code> (Container Inline Size) statt <code>vi</code> (Viewport Inline)</li>
-                    <li>Identische Font-Size Skala wie viewport-basiert</li>
-                    <li>Konfigurierbar via <code>--cq-min</code> und <code>--cq-max</code></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- CSS CUSTOM PROPERTIES -->
-        <div class="section">
-            <h2>CSS Custom Properties</h2>
-            <p>Das System definiert folgende Root-Level Custom Properties:</p>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Property</th>
-                        <th>Wert</th>
-                        <th>Beschreibung</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>--measure</code></td>
-                        <td>65ch</td>
-                        <td>Optimale Zeilenlänge für Lesbarkeit</td>
-                    </tr>
-                    <tr>
-                        <td><code>--lead</code></td>
-                        <td>1.5</td>
-                        <td>Standard Line-Height</td>
-                    </tr>
-                    <tr>
-                        <td><code>--lead-tight</code></td>
-                        <td>1.2</td>
-                        <td>Kompakte Line-Height</td>
-                    </tr>
-                    <tr>
-                        <td><code>--lead-loose</code></td>
-                        <td>1.7</td>
-                        <td>Luftige Line-Height</td>
-                    </tr>
-                    <tr>
-                        <td><code>--vw-min</code></td>
-                        <td>360px</td>
-                        <td>Minimum Viewport-Breite</td>
-                    </tr>
-                    <tr>
-                        <td><code>--vw-max</code></td>
-                        <td>1440px</td>
-                        <td>Maximum Viewport-Breite</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="demo-box">
-                <p><strong>Eigene Values überschreiben:</strong></p>
-                <pre><code>:root {
-  --lead: 1.6;        /* Mehr Zeilenhöhe */
-  --measure: 70ch;    /* Längere Zeilen */
-}</code></pre>
-            </div>
-        </div>
-
-        <!-- PROSE CLASS -->
-        <div class="section">
-            <h2>Die .prose Klasse</h2>
-            <p>Verwende <code>.prose</code> für optimale Lesbarkeit von längeren Texten:</p>
-
-            <div class="row">
-                <div class="xs:col-12 lg:col-6">
-                    <h4>Ohne .prose</h4>
-                    <div class="demo-box">
-                        <p>Dieser Text hat keine Breitenbeschränkung und kann über die gesamte verfügbare Breite laufen, was bei sehr breiten Viewports die Lesbarkeit beeinträchtigen kann.</p>
-                    </div>
-                </div>
-                <div class="xs:col-12 lg:col-6">
-                    <h4>Mit .prose</h4>
-                    <div class="demo-box prose">
-                        <p>Dieser Text ist auf 65 Zeichen Breite beschränkt, was als optimal für die Lesbarkeit gilt. Die Augen müssen nicht so weit wandern.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- BEST PRACTICES -->
-        <div class="section section-dark">
-            <h2>Best Practices</h2>
-            <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h3>✅ Do's</h3>
-                <ul>
-                    <li>Verwende semantisches HTML (<code>h1-h6</code>, <code>p</code>, etc.)</li>
-                    <li>Nutze <code>.prose</code> für längere Texte</li>
-                    <li>Verwende die Font-Size Tokens für Custom-Komponenten</li>
-                    <li>Teste responsive Skalierung bei verschiedenen Viewport-Größen</li>
-                    <li>Nutze Container Queries für Cards und Module</li>
-                </ul>
-            </div>
-
-            <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 8px;">
-                <h3>❌ Don'ts</h3>
-                <ul>
-                    <li>Vermeide feste <code>font-size</code> Werte in Pixeln</li>
-                    <li>Überschreibe nicht die Basis-Typografie ohne Grund</li>
-                    <li>Verwende keine zu kleinen Schriftgrößen (&lt;12px)</li>
-                    <li>Ignoriere nicht die Lesbarkeit bei extremen Viewport-Größen</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- NAVIGATION -->
-        <div class="section">
-            <h2>🎯 Weitere Beispiele</h2>
-            <p>Schaue dir auch die anderen Beispiele an:</p>
-            <ul>
-                <li><a href="01-basic.html">01-basic.html</a> - Grundlegende Grid-Funktionen</li>
-                <li><a href="02-advanced.html">02-advanced.html</a> - Fortgeschrittene Grid-Features</li>
-                <li><a href="03-website-layout.html">03-website-layout.html</a> - Realistisches Website-Layout</li>
-            </ul>
+        <div class="breakpoint-badge">
+            <span class="label">Breakpoint:</span>
+            <span class="breakpoint-value" id="breakpointName">-</span>
         </div>
     </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="section section-hero">
+                <h1>🎨 Fluid Typography System</h1>
+                <p>Ein einfaches, skalierbares Typografie-System basierend auf CSS clamp()</p>
+                <p style="margin-top: 10px; opacity: 0.9;">Ändern Sie die Browsergröße und beobachten Sie die fließende Skalierung</p>
+            </div>
+
+            <!-- Live Scale Demo -->
+            <div class="section">
+                <h2>📏 Live-Skalierung der Überschriften</h2>
+                <p>Ziehen Sie Ihr Browserfenster auf verschiedene Breiten, um die fluide Skalierung in Echtzeit zu sehen.</p>
+
+                <div class="scale-demo">
+                    <div class="scale-item">
+                        <span class="scale-label">h1 (2.5em)</span>
+                        <h1 style="display: inline;">The quick brown fox</h1>
+                        <span class="font-size-display" id="h1-size">-</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-label">h2 (2em)</span>
+                        <h2 style="display: inline;">The quick brown fox</h2>
+                        <span class="font-size-display" id="h2-size">-</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-label">h3 (1.5em)</span>
+                        <h3 style="display: inline;">The quick brown fox</h3>
+                        <span class="font-size-display" id="h3-size">-</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-label">h4 (1.25em)</span>
+                        <h4 style="display: inline;">The quick brown fox</h4>
+                        <span class="font-size-display" id="h4-size">-</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-label">body (1em)</span>
+                        <p style="display: inline;">The quick brown fox</p>
+                        <span class="font-size-display" id="p-size">-</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-label">small (0.875em)</span>
+                        <small style="display: inline;">The quick brown fox</small>
+                        <span class="font-size-display" id="small-size">-</span>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 Wie es funktioniert:</strong> Die Basis-Schriftgröße skaliert von 16px bei 320px Viewport bis 20px bei 1920px Viewport. Alle Überschriften verwenden relative Einheiten (em) und skalieren automatisch mit.
+                </div>
+            </div>
+
+            <!-- Configuration -->
+            <div class="section">
+                <h2>⚙️ Konfiguration</h2>
+                <p>Das System basiert auf nur 4 Konfigurationswerten:</p>
+
+                <div class="config-box">
+                    <pre>// Config (nur diese Werte anpassen)
+$font-min: 16;      // Kleinste Schriftgröße in px
+$font-max: 20;      // Größte Schriftgröße in px
+$screen-min: 320;   // Kleinster Viewport in px
+$screen-max: 1920;  // Größter Viewport in px
+
+// Auto-Berechnung (nicht anfassen)
+$slope: ($font-max - $font-min) / ($screen-max - $screen-min);
+$base: $font-min - ($slope * $screen-min);
+
+:root {
+  font-size: clamp(
+    #{$font-min}px,
+    #{$base}px + #{$slope * 100}vw,
+    #{$font-max}px
+  );
+}</pre>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Wert</th>
+                            <th>Beschreibung</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>$font-min</code></td>
+                            <td>16px</td>
+                            <td>Minimale Basis-Schriftgröße bei kleinstem Viewport</td>
+                        </tr>
+                        <tr>
+                            <td><code>$font-max</code></td>
+                            <td>20px</td>
+                            <td>Maximale Basis-Schriftgröße bei größtem Viewport</td>
+                        </tr>
+                        <tr>
+                            <td><code>$screen-min</code></td>
+                            <td>320px</td>
+                            <td>Kleinste zu unterstützende Viewport-Breite</td>
+                        </tr>
+                        <tr>
+                            <td><code>$screen-max</code></td>
+                            <td>1920px</td>
+                            <td>Größte Viewport-Breite für Skalierung</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Typography Scale -->
+            <div class="section">
+                <h2>📐 Typografie-Skala</h2>
+                <p>Alle Elemente basieren auf relativen em-Einheiten:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Element</th>
+                            <th>Größe</th>
+                            <th>Line-Height</th>
+                            <th>Bei 320px</th>
+                            <th>Bei 1920px</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>h1</code></td>
+                            <td>2.5em</td>
+                            <td>1.2</td>
+                            <td>40px</td>
+                            <td>50px</td>
+                        </tr>
+                        <tr>
+                            <td><code>h2</code></td>
+                            <td>2em</td>
+                            <td>1.3</td>
+                            <td>32px</td>
+                            <td>40px</td>
+                        </tr>
+                        <tr>
+                            <td><code>h3</code></td>
+                            <td>1.5em</td>
+                            <td>1.4</td>
+                            <td>24px</td>
+                            <td>30px</td>
+                        </tr>
+                        <tr>
+                            <td><code>h4</code></td>
+                            <td>1.25em</td>
+                            <td>1.4</td>
+                            <td>20px</td>
+                            <td>25px</td>
+                        </tr>
+                        <tr>
+                            <td><code>body/p</code></td>
+                            <td>1em</td>
+                            <td>1.5</td>
+                            <td>16px</td>
+                            <td>20px</td>
+                        </tr>
+                        <tr>
+                            <td><code>small</code></td>
+                            <td>0.875em</td>
+                            <td>1.5</td>
+                            <td>14px</td>
+                            <td>17.5px</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Practical Example -->
+            <div class="section">
+                <h2>📝 Praktisches Beispiel</h2>
+                <p>So sieht typischer Content mit dem neuen Typografie-System aus:</p>
+
+                <div class="demo-grid">
+                    <div class="demo-card">
+                        <h3>Artikel-Überschrift</h3>
+                        <p>Dies ist ein normaler Fließtext-Absatz. Die Schriftgröße passt sich automatisch an die Viewport-Breite an, ohne dass Sie Media Queries schreiben müssen.</p>
+                        <p>Das System ist perfekt für <strong>responsive Websites</strong> und <em>moderne Web-Anwendungen</em>.</p>
+                        <h4>Unterüberschrift</h4>
+                        <ul>
+                            <li>Automatische Skalierung</li>
+                            <li>Keine Media Queries nötig</li>
+                            <li>Einfach zu konfigurieren</li>
+                        </ul>
+                        <p><small>Dies ist kleinerer Text für Fußnoten oder Meta-Informationen.</small></p>
+                    </div>
+
+                    <div class="demo-card">
+                        <h3>Blog-Post Teaser</h3>
+                        <h5>5. November 2025</h5>
+                        <p>Eine kurze Einleitung in den Blog-Post. Der Text skaliert wunderbar über alle Bildschirmgrößen hinweg.</p>
+                        <h6>Kategorien: Design, Development</h6>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison -->
+            <div class="section">
+                <h2>🔄 Vorher / Nachher</h2>
+
+                <div class="comparison-box">
+                    <div class="comparison-item comparison-before">
+                        <h4>❌ Vorher (Fixed)</h4>
+                        <div style="font-size: 16px;">
+                            <p>Statische 16px Schriftgröße auf allen Geräten.</p>
+                            <ul>
+                                <li style="font-size: 16px;">Zu klein auf großen Monitoren</li>
+                                <li style="font-size: 16px;">Unflexibel und starr</li>
+                                <li style="font-size: 16px;">Viele Media Queries nötig</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="comparison-item comparison-after">
+                        <h4>✅ Nachher (Fluid)</h4>
+                        <p>Skaliert von 16px bis 20px je nach Viewport.</p>
+                        <ul>
+                            <li>Perfekt lesbar auf allen Geräten</li>
+                            <li>Automatische Anpassung</li>
+                            <li>Keine Media Queries nötig</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advantages -->
+            <div class="section">
+                <h2>✨ Vorteile</h2>
+
+                <div class="demo-grid">
+                    <div class="demo-card">
+                        <h3>🎯 Einfachheit</h3>
+                        <p>Nur 4 Werte konfigurieren, der Rest wird automatisch berechnet. Keine komplexen Media Queries für Typografie.</p>
+                    </div>
+
+                    <div class="demo-card">
+                        <h3>📱 Responsive</h3>
+                        <p>Funktioniert perfekt auf allen Geräten von Smartphone bis 4K-Monitor ohne zusätzlichen Code.</p>
+                    </div>
+
+                    <div class="demo-card">
+                        <h3>🔧 Wartbar</h3>
+                        <p>Änderungen an nur 4 Variablen wirken sich auf das gesamte System aus. Kein Suchen in zahlreichen Media Queries.</p>
+                    </div>
+
+                    <div class="demo-card">
+                        <h3>⚡ Performance</h3>
+                        <p>Moderne CSS-Features (clamp) ohne JavaScript. Weniger Code, bessere Performance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Use -->
+            <div class="section">
+                <h2>🚀 Verwendung</h2>
+
+                <h3>1. Konfiguration anpassen</h3>
+                <p>Öffnen Sie <code>_typography.scss</code> und passen Sie die 4 Werte an:</p>
+                <div class="config-box">
+                    <pre>$font-min: 16;      // Ihre minimale Schriftgröße
+$font-max: 20;      // Ihre maximale Schriftgröße
+$screen-min: 320;   // Kleinster Viewport
+$screen-max: 1920;  // Größter Viewport</pre>
+                </div>
+
+                <h3 style="margin-top: 30px;">2. HTML schreiben</h3>
+                <p>Verwenden Sie einfach semantisches HTML:</p>
+                <div class="config-box">
+                    <pre>&lt;h1&gt;Hauptüberschrift&lt;/h1&gt;
+&lt;p&gt;Ihr Text hier...&lt;/p&gt;
+&lt;h2&gt;Unterüberschrift&lt;/h2&gt;</pre>
+                </div>
+
+                <h3 style="margin-top: 30px;">3. Fertig!</h3>
+                <p>Das System kümmert sich automatisch um die Skalierung. Keine weiteren Schritte nötig.</p>
+            </div>
+
+            <!-- Navigation -->
+            <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <h2>🎯 Weitere Beispiele</h2>
+                <p>Schauen Sie sich auch die anderen Beispiele an:</p>
+                <ul style="margin-top: 20px; line-height: 2;">
+                    <li><a href="01-basic.html" style="color: white; text-decoration: underline;">01-basic.html</a> - Grundlegende Grid-Funktionen</li>
+                    <li><a href="02-advanced.html" style="color: white; text-decoration: underline;">02-advanced.html</a> - Fortgeschrittene Grid-Features</li>
+                    <li><a href="03-website-layout.html" style="color: white; text-decoration: underline;">03-website-layout.html</a> - Realistisches Website-Layout</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for live updates -->
+    <script>
+        // Breakpoint definitions (must match _config.scss)
+        const breakpoints = {
+            xs: 0,
+            sm: 600,
+            md: 768,
+            lg: 1024,
+            xl: 1280,
+            xxl: 1536
+        };
+
+        function getCurrentBreakpoint(width) {
+            if (width >= breakpoints.xxl) return 'xxl';
+            if (width >= breakpoints.xl) return 'xl';
+            if (width >= breakpoints.lg) return 'lg';
+            if (width >= breakpoints.md) return 'md';
+            if (width >= breakpoints.sm) return 'sm';
+            return 'xs';
+        }
+
+        function getComputedFontSize(element) {
+            return window.getComputedStyle(element).fontSize;
+        }
+
+        function updateViewportInfo() {
+            const width = window.innerWidth;
+            const breakpoint = getCurrentBreakpoint(width);
+
+            // Update viewport width
+            document.getElementById('viewportWidth').textContent = width + 'px';
+
+            // Update breakpoint
+            document.getElementById('breakpointName').textContent = breakpoint.toUpperCase();
+
+            // Update font sizes
+            const h1 = document.querySelector('.scale-demo h1');
+            const h2 = document.querySelector('.scale-demo h2');
+            const h3 = document.querySelector('.scale-demo h3');
+            const h4 = document.querySelector('.scale-demo h4');
+            const p = document.querySelector('.scale-demo p');
+            const small = document.querySelector('.scale-demo small');
+
+            if (h1) document.getElementById('h1-size').textContent = getComputedFontSize(h1);
+            if (h2) document.getElementById('h2-size').textContent = getComputedFontSize(h2);
+            if (h3) document.getElementById('h3-size').textContent = getComputedFontSize(h3);
+            if (h4) document.getElementById('h4-size').textContent = getComputedFontSize(h4);
+            if (p) document.getElementById('p-size').textContent = getComputedFontSize(p);
+            if (small) document.getElementById('small-size').textContent = getComputedFontSize(small);
+        }
+
+        // Update on load
+        updateViewportInfo();
+
+        // Update on resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(updateViewportInfo, 100);
+        });
+    </script>
 </body>
 </html>
