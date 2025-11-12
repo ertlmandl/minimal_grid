@@ -1,10 +1,11 @@
 :root {
-  font-size: clamp(16px, 15.2px + 0.25vw, 20px);
+  font-size: clamp(16px, 2.3529411765vw, 47.0588235294px);
 }
 
 body {
   font-size: 1em;
   line-height: 1.5;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
 h1 {
@@ -28,12 +29,12 @@ h4 {
 }
 
 h5 {
-  font-size: 1em;
+  font-size: 1.125em;
   line-height: 1.5;
 }
 
 h6 {
-  font-size: 0.875em;
+  font-size: 1em;
   line-height: 1.5;
 }
 
