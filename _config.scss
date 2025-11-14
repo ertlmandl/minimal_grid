@@ -5,15 +5,15 @@
 @use "sass:map";
 
 $grid-columns: 12 !default;
-$gutter: 5vw !default;
-$container-padding: 5vw !default;
+$gutter: 4vw !default;
+$container-padding: 4vw !default;
 $container-max-width: 2560px !default;
 
 $breakpoints: (
-  xs: 0,
-  sm: 600px,
-  md: 768px,
-  lg: 1024px,
-  xl: 1280px,
-  xxl: 1536px
+  xs: 0,        // 1 Spalte
+  sm: 480px,    // 2 Spalten möglich (Cards)
+  md: 768px,    // 2 Spalten stabil / Tablet
+  lg: 960px,    // 3 Spalten stabil
+  xl: 1280px,   // 4 Spalten / echter Desktop
+  xxl: 1600px   // große Monitore
 ) !default;
